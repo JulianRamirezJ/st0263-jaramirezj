@@ -1,5 +1,5 @@
 from flask import Flask, request
-import mom
+from mom import mom
 import json
 import api_config
 
