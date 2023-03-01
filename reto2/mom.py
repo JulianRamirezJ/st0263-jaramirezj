@@ -8,7 +8,7 @@ def get_files(file_type=None):
         var = []
         def callback(channel, method, properties, body):
                 var.append(json.loads(body))
-        channel.stop_consuming()
+                channel.stop_consuming()
         channel.basic_publish(exchange='file_listing', routing_key='request', body=mensaje)
         channel.basic_consume(queue="receive_files", on_message_callback=callback, auto_ack=True)
         channel.start_consuming()
