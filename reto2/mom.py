@@ -1,9 +1,10 @@
 import pika, json
+import mom_config
 
-def get_files():
-        connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', 5672, '/', pika.PlainCredentials("user", "password")))
+def get_files(file_type=None):
+        connection = pika.BlockingConnection(pika.ConnectionParameters(mom_config.HOST, mom_config.PORT, '/', pika.PlainCredentials("user", "password")))
         channel = connection.channel()
-        mensaje = 'list'
+        mensaje = file_type
         var = []
         def callback(channel, method, properties, body):
                 var.append(json.loads(body))
