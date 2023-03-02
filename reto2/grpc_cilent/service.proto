@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message FileRequest {
+    optional string type = 1;
+}
+
+message FileResponse {
+    string files = 1;
+}
+
+service GetFile {
+    rpc List(FileRequest) returns (FileResponse);
+}

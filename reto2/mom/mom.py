@@ -1,5 +1,5 @@
 import pika, json
-import mom_config
+from mom import mom_config
 
 def get_files(file_type=None):
         connection = pika.BlockingConnection(pika.ConnectionParameters(mom_config.HOST, mom_config.PORT, '/', pika.PlainCredentials("user", "password")))
