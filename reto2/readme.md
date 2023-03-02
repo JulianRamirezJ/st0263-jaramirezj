@@ -127,23 +127,57 @@ los que contienen el codigo de los microservicios.
 
 ## opcionalmente - si quiere mostrar resultados o pantallazos 
 
-# 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+Servidor(API) funcionando:
+![image](https://user-images.githubusercontent.com/57159295/222574650-3b0ded24-4c08-4b40-932e-296d21f33815.png)
+
+Microservicio 1 Funcionando:
+![image](https://user-images.githubusercontent.com/57159295/222574724-cac070b8-83f8-45d8-bd26-8b1bcdcdfd53.png)
+
+Microservicio 2 Funcionando:
+![image](https://user-images.githubusercontent.com/57159295/222574798-63e149d9-f4ae-48a2-ad99-ea3aaa9d896d.png)
+
+
+# 4. Descripción del ambiente de EJECUCIÓN (en producción)
 
 # IP o nombres de dominio en nube o en la máquina servidor.
 
+Para que se puedan hacer peticiones al la API sin necesidad de volver a consultar la IP de la instancia EC2, 
+la IP de la máquina se fijó a través de una IP elasctica, esta es: 44.213.230.177, además se debe tener en cuenta que
+para conectarse a la api se tiene que usar el puerto '5000' y interiormente la api esta configurada para funcionar sobre la
+dirección '/api?list', donde list puede enviarse sin parametros o con un parametro del tipo '.txt' o '.py'.
+Una dirección completa para conectarse a la api sería '44.213.230.177:5000/api?list=.txt'
+
 ## Descripción y como se configura los parámetros del proyecto
-Para configurar los parametros del proyecto se debe ingresar a los archivos de configuración que cada nodo tiene.
 
-## como se lanza el servidor.
-Para lanzar el servidor 
+Para configurar los parametros del proyecto se debe ingresar a los archivos de configuración que cada nodo tiene y modificarlos.
+Se debe tener en cuenta que al realizar cambios sobre los puertos también se deben modificar las reglas de entrada.
 
-## Un mini guia de como un usuario utilizaría el software o la aplicación
+## Como se lanza el servidor.
+
+Para lanzar el servidor y los microservicios luego de que todo se haya configurado todo, dirijase al
+directorio del proyecto y ejecute el comando './start_servers.sh'. Este archivo pondrá a funcionar el proyecto.
+En este script se encuentra el siguiente código:
+    docker start rabbit-server
+    python3 microservice1/ms1_mom.py &
+    sleep 0.2
+    python3 grpc_client/ms2_grpc.py &
+    sleep 0.2
+    python3 server.py &
+
+## Guia de como un usuario utilizaría el software o la aplicación
+
 Un usuario podría utilizar la aplicación mediante POSTMAN o similares, o desde una terminal.
 Para POSTMAN simplemente seria configurar el tipo de petición cómo GET y poner la dirección del proyecto, 
 en este caso http://IP:5000/api?list , también podria ser http://IP:5000/api?list=.txt o http://IP:5000/api?list=.py
 Desde la terminal podriamos ejecutar el comando curl así: curl -X GET  http://IP:5000/api?list=.txt
 
 ## opcionalmente - si quiere mostrar resultados o pantallazos 
+
+Ejecución de solicitud GET desde la misma máquina:
+![image](https://user-images.githubusercontent.com/57159295/222576023-46c1df0a-e0dc-4e7d-8c8e-b2ad1b5563a7.png)
+
+Ejecución desde POSTMAN y un IP externa:
+
 
 # 5. Otra información que considere relevante para esta actividad.
 
