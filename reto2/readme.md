@@ -68,11 +68,13 @@ Para ejecutarlo por primera vez se siguen los pasos a continuación:
    1.Asegurarse de que todas las reglas de entrada esten configuradas correctamente. Esto se especifica en la sección Detalles Técnicos.
    2. En el directorio del proyecto ejecute este comando para montar el servidor de RabbitMQ:
    docker run -d --hostname my-rabbit -p 15672:15672 -p 5672:5672 --name rabbit-server -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-   management 
-   3. Ingresar a la dirección http://IP:15672, esto lo llevará al panel de administración de rabbitmq, ingrse con user = user y password=password. Luego
+   3. Ingresar a la dirección http://IP:15672, esto lo llevará al panel de administración de rabbitmq, ingree con user = user y password=password. Luego
       ingrese a la subpagina exchange y cree un nuevo exchange con el nombre 'file_listing'. Luego vaya a la subpagina Queues y cree dos colas de
       tipo 'Classic' con los nombres 'request_files' y 'receive_files'. A continuación regrese a la subpágina de exchange e ingrese a el exchange 'file_listing'
       que creamos anteriormente, dirijase a la parte inferior y donde dice bind hay que asociar las dos colas que creamos a este exchange. Para esto debe
       escribir el nombre de la cola y la routing key. Para 'request_files' routing_key='request' y para 'receive_files' routing_key='receive'
+   4. En caso de que aún no se haya compilado el archivo service.proto(Ya estan incluidos los archivos compilados en el repositorio), se debe 
+    ejecutar el siguiente: python3 -m grpc_tools.protoc -I ./grpc_client --python_out=. \ --grpc_python_out=. ./service.proto
  A partir de aquí se haria cada vez que se quiere ejecutar de nuevo el proyecto
    4. Ejecutar el comando: docker start rabbit-server
    5. Luego se abre 3 terminales en ingrese a la carpeta del proyecto,posteriormente ejecute lo siguiente:
