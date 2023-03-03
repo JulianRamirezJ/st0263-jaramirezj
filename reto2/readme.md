@@ -65,25 +65,38 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
  
 Para ejecutarlo por primera vez se siguen los pasos a continuación:
    1.Estar posicionado en el directorio del proyecto que es 'st0263-jaramirezj/reto2'.
+   
    1.Asegurarse de que todas las reglas de entrada esten configuradas correctamente. Esto se especifica en la sección Detalles Técnicos.
+   
    2. En el directorio del proyecto ejecute este comando para montar el servidor de RabbitMQ:
    docker run -d --hostname my-rabbit -p 15672:15672 -p 5672:5672 --name rabbit-server -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-   management 
+   
    3. Ingresar a la dirección http://IP:15672, esto lo llevará al panel de administración de rabbitmq, ingree con user = user y password=password. Luego
       ingrese a la subpagina exchange y cree un nuevo exchange con el nombre 'file_listing'. Luego vaya a la subpagina Queues y cree dos colas de
       tipo 'Classic' con los nombres 'request_files' y 'receive_files'. A continuación regrese a la subpágina de exchange e ingrese a el exchange 'file_listing'
       que creamos anteriormente, dirijase a la parte inferior y donde dice bind hay que asociar las dos colas que creamos a este exchange. Para esto debe
       escribir el nombre de la cola y la routing key. Para 'request_files' routing_key='request' y para 'receive_files' routing_key='receive'
+   
    4. En caso de que aún no se haya compilado el archivo service.proto(Ya estan incluidos los archivos compilados en el repositorio), se debe 
     ejecutar el siguiente: python3 -m grpc_tools.protoc -I ./grpc_client --python_out=. \ --grpc_python_out=. ./service.proto
+ 
  A partir de aquí se haria cada vez que se quiere ejecutar de nuevo el proyecto
-   4. Ejecutar el comando: docker start rabbit-server
-   5. Luego se abre 3 terminales en ingrese a la carpeta del proyecto,posteriormente ejecute lo siguiente:
-      5.1. En la primera terminal ingrese a la ruta /microservice1 y ejecute 'python3 ms1_mom.py'. Con esto ya tenemos funcionando 
+   
+   5. Ejecutar el comando: docker start rabbit-server
+  
+  6. Luego se abre 3 terminales en ingrese a la carpeta del proyecto,posteriormente ejecute lo siguiente:
+     
+     6.1. En la primera terminal ingrese a la ruta /microservice1 y ejecute 'python3 ms1_mom.py'. Con esto ya tenemos funcionando 
       el microservicio 1.
-      5.2. En la segunda terminal ingrese a la ruta /grpc_client y ejecute 'python3 ms2_grpc.py'. Con esto ya tenemos funcionando 
+      
+      6.2. En la segunda terminal ingrese a la ruta /grpc_client y ejecute 'python3 ms2_grpc.py'. Con esto ya tenemos funcionando 
       el microservicio 2.
-      5.3. En la tercera terminal ejecute 'python3 server.py' para que se ejecute la API.
+      
+      6.3. En la tercera terminal ejecute 'python3 server.py' para que se ejecute la API.
+     
  En este punto ya se tendria todo listo, y se podria empezar a hacer peticiones a la API.
+ 
+ En la sección de como se lanzan los servidores en el ambiente de ejecución, se ilustra una forma mejor y más rapida para lanzarlos.
 
 
 ##Detalles del desarrollo
@@ -165,6 +178,20 @@ En este script se encuentra el siguiente código:
     python3 grpc_client/ms2_grpc.py &
     sleep 0.2
     python3 server.py &
+    
+Para evitar tener que hacer estos pasos de manera manual, se tiene una forma alternativa que lo que hace es 
+ejecutar elscript anterior cuando se inicia la instancia. Esto se logra a partir
+de crear un archivo .service en la carpeta /etc/systemd/system , que contiene el siguiente código:
+
+[Unit]
+Description=Start servers
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/st0263-jaramirezj/reto2/start_servers.sh
+[Install]
+WantedBy=multi-user.target
+
+
 
 ## Guia de como un usuario utilizaría el software o la aplicación
 
