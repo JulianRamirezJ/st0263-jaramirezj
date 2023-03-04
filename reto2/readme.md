@@ -183,6 +183,7 @@ En este script se encuentra el siguiente código:
 Para evitar tener que hacer estos pasos de manera manual, se tiene una forma alternativa que lo que hace es 
 ejecutar el script anterior cuando se inicia la instancia. Esto se logra a partir
 de crear un archivo .service en la carpeta /etc/systemd/system , que contiene el siguiente código:
+
     [Unit]
     Description=Start servers
     [Service]
