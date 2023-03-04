@@ -172,6 +172,7 @@ Se debe tener en cuenta que al realizar cambios sobre los puertos también se de
 Para lanzar el servidor y los microservicios luego de que todo se haya configurado todo, dirijase al
 directorio del proyecto y ejecute el comando './start_servers.sh'. Este archivo pondrá a funcionar el proyecto.
 En este script se encuentra el siguiente código:
+
     docker start rabbit-server
     python3 microservice1/ms1_mom.py &
     sleep 0.2
@@ -180,7 +181,7 @@ En este script se encuentra el siguiente código:
     python3 server.py &
     
 Para evitar tener que hacer estos pasos de manera manual, se tiene una forma alternativa que lo que hace es 
-ejecutar elscript anterior cuando se inicia la instancia. Esto se logra a partir
+ejecutar el script anterior cuando se inicia la instancia. Esto se logra a partir
 de crear un archivo .service en la carpeta /etc/systemd/system , que contiene el siguiente código:
 
 [Unit]
