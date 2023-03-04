@@ -1,2 +1,4 @@
 pip install grpcio
+pip3 install grpcio==1.37.1
 pip install grpcio grpcio-tools
+python3 -m grpc_tools.protoc -I ../protobufs --python_out=. \ --grpc_python_out=. ../protobufs/service.proto

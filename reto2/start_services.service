@@ -1,0 +1,9 @@
+[Unit]
+Description=Start servers
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/st0263-jaramirezj/reto2/start_servers.sh
+
+[Install]
+WantedBy=multi-user.target
