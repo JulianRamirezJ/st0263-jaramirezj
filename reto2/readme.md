@@ -183,14 +183,13 @@ En este script se encuentra el siguiente código:
 Para evitar tener que hacer estos pasos de manera manual, se tiene una forma alternativa que lo que hace es 
 ejecutar el script anterior cuando se inicia la instancia. Esto se logra a partir
 de crear un archivo .service en la carpeta /etc/systemd/system , que contiene el siguiente código:
-
-[Unit]
-Description=Start servers
-[Service]
-Type=simple
-ExecStart=/home/ubuntu/st0263-jaramirezj/reto2/start_servers.sh
-[Install]
-WantedBy=multi-user.target
+    [Unit]
+    Description=Start servers
+    [Service]
+    Type=simple
+    ExecStart=/home/ubuntu/st0263-jaramirezj/reto2/start_servers.sh
+    [Install]
+    WantedBy=multi-user.target
 
 
 
