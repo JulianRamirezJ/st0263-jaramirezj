@@ -206,6 +206,13 @@ Ejecución de solicitud GET desde la misma máquina:
 ![image](https://user-images.githubusercontent.com/57159295/222576023-46c1df0a-e0dc-4e7d-8c8e-b2ad1b5563a7.png)
 
 Ejecución desde POSTMAN y un IP externa:
+Petición simple
+![image](https://user-images.githubusercontent.com/57159295/222915689-61cda0d6-b7a2-410c-b857-934cc5d8e860.png)
+
+Petición para buscar un tipo de archivo especifico
+![image](https://user-images.githubusercontent.com/57159295/222916140-cb488173-ec07-4d41-9798-73d7309c2c58.png)
+
+
 
 
 # 5. Otra información que considere relevante para esta actividad.
