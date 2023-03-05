@@ -18,8 +18,12 @@ def run_files():
         server = servers[current_server]
         current_server = (current_server + 1) % len(servers)
         response_json = server.get_files(type)
-        print(response_json)
-        return response_json
+        if response_json is not None:
+            print(response_json)
+            return response_json
+        else:
+            response_json = server.get_files(type)
+            return response_json
     else:
         return json.dumps({'error': 'No list parameter provided'})
 

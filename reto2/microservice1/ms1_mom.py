@@ -1,5 +1,6 @@
 import pika
 import json
+import time
 import os
 import ms1_config
 
@@ -30,7 +31,21 @@ def callback(ch, method, properties, body):
     send_response(channel, files)
     channel.stop_consuming()
 
+def connect_with_retry(host, port, credentials, virtual_host='/', max_retries=10, retry_delay=5):
+    parameters = pika.ConnectionParameters(host=host, port=port, virtual_host=virtual_host, credentials=credentials)
+    retries = 0
+    while retries < max_retries:
+        try:
+            connection = pika.BlockingConnection(parameters)
+            return connection
+        except pika.exceptions.AMQPConnectionError as e:
+            time.sleep(retry_delay)
+            retries += 1
+    raise e   
+
 while True:
-    connection = pika.BlockingConnection(pika.ConnectionParameters(ms1_config.HOST, ms1_config.PORT, '/', pika.PlainCredentials("user", "password")))
+    #connection = pika.BlockingConnection(pika.ConnectionParameters(ms1_config.HOST, ms1_config.PORT, '/', pika.PlainCredentials("user", "password")))
+    credentials = pika.PlainCredentials('user', 'password')
+    connection = connect_with_retry(ms1_config.HOST, ms1_config.PORT, credentials)
     channel = connection.channel()
     receive_message(channel)

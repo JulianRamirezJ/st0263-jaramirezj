@@ -2,6 +2,8 @@
 Description=Start servers
 
 [Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu
 Type=simple
 ExecStart=/home/ubuntu/st0263-jaramirezj/reto2/start_servers.sh
 
