@@ -8,7 +8,7 @@
 # API GATEWAY y microservicios a través de MOM Y gRPC.
 #
 
-1. En esta actividad se desarrollaron dos microservicios basicos, que corresponden a listar y
+## 1. En esta actividad se desarrollaron dos microservicios basicos, que corresponden a listar y
 buscar un tipo de archivo especifico. Estos microservicios se implementaron dos veces, ya que se tiene un API Gateway
 que actua como balnceador de carga entre los dos servidores que proveen estos microservicios. Aqui hay un punto muy importante
 a resaltar, y es que cada servidor que provee los microservicios se comunica de una forma diferente con el API, por un lado tenemos un
@@ -99,7 +99,7 @@ Para ejecutarlo por primera vez se siguen los pasos a continuación:
  En la sección de como se lanzan los servidores en el ambiente de ejecución, se ilustra una forma mejor y más rapida para lanzarlos.
 
 
-##Detalles del desarrollo
+## Detalles del desarrollo
 
 Durante el desarrollo se me presentaron varios problemas que tarde mucho en resolver, con lo que el proyecto tomó más tiempo de desarrolo que
 lo esperado. Inicialmente empecé programando el MOM para lo que utilicé el tutorial de RabbitMQ como punto de partida, la primera vez que lo
@@ -140,7 +140,7 @@ los que contienen el codigo de los microservicios.
 ![image](https://user-images.githubusercontent.com/57159295/222546363-0aaf4c82-1c02-4905-8192-aeed1cf697fd.png)
 
 
-## opcionalmente - si quiere mostrar resultados o pantallazos 
+## Resultados o pantallazos 
 
 Servidor(API) funcionando:
 ![image](https://user-images.githubusercontent.com/57159295/222574650-3b0ded24-4c08-4b40-932e-296d21f33815.png)
@@ -212,7 +212,6 @@ Petición simple
 
 Petición para buscar un tipo de archivo especifico
 ![image](https://user-images.githubusercontent.com/57159295/222916140-cb488173-ec07-4d41-9798-73d7309c2c58.png)
-
 
 
 
