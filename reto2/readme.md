@@ -24,7 +24,7 @@ servicio respectivo, le solicite los recursos, y este los reciba, con lo que el 
  de RabbitMQ. 
   Otro requerimiento cumplido es que todos los servicios se levantan al iniciar la instancia.
  
-# 2. información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
+# 2. Información general de diseño de alto nivel y arquitectura
 
    ![API_MOM_GRPCpng](https://user-images.githubusercontent.com/57159295/222502769-ced250b8-9c67-42cc-a1a1-7a0830886cd3.png)
    
@@ -34,7 +34,7 @@ servicio respectivo, le solicite los recursos, y este los reciba, con lo que el 
    Otro importante aspecto a tener en cuenta en la arquitectura, es que el despliegue de el API REST y los microservicios se hizo en una instancia
    de EC2 de amazon(Todos en la misma maquina).
 
-# 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+# 3. Descripción del ambiente de desarrollo y técnico
 
    - Para desarrollar el proyecto se utilizó principamennte el lenguaje de programación python en su versión 3.10.6. En este lenguaje se programó tanto la API REST
      como la comunicación con los microservicios y los mismos microservicios.
@@ -85,7 +85,7 @@ Para ejecutarlo por primera vez se siguen los pasos a continuación(En un entorn
    
    5. Ejecutar el comando: docker start rabbit-server
   
-  6. Luego se abre 3 terminales en ingrese a la carpeta del proyecto,posteriormente ejecute lo siguiente:
+   6. Luego se abre 3 terminales en ingrese a la carpeta del proyecto,posteriormente ejecute lo siguiente:
      
      6.1. En la primera terminal ingrese a la ruta /microservice1 y ejecute 'python3 ms1_mom.py'. Con esto ya tenemos funcionando 
       el microservicio 1.
