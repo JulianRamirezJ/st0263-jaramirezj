@@ -21,7 +21,7 @@ def run_files():
         if response_json is not None:
             print(response_json)
             return response_json
-        else:
+        else:   
             response_json = server.get_files(type)
             return response_json
     else:
