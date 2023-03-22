@@ -36,6 +36,10 @@ En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpr
  Por el lado de los no funcionales se cumplió con el hecho de que estos servidores se desplegaron en instancias de GCP.
  Otro requerimiento cumplido es que todos los servicios se levantan al iniciar la instancia.
  
+ ## 1.2. Que aspectos no cumplió o no desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+ En general se cumplieron paracticamente todos los aspectos propuestos, lo único que se podría agregar a futuro es dockerizar el
+ NGINX anunque no es necesario ni urgente.
+ 
 # 2. Información general de diseño de alto nivel y arquitectura
 
    ![reto3](https://user-images.githubusercontent.com/57159295/227046402-29a4d279-4f71-4d06-b231-bc991c8505c1.png)
@@ -115,21 +119,19 @@ Para ejecutarlo por primera vez se siguen los pasos a continuación(En un entorn
 
 ## Detalles del desarrollo
 
-Durante el desarrollo se me presentaron varios problemas que tarde mucho en resolver, con lo que el proyecto tomó más tiempo de desarrollo de
-lo esperado. Inicialmente empecé programando el MOM para lo que utilicé el tutorial de RabbitMQ como punto de partida, la primera vez que lo
-intenté hacer no funcionó, pero después de cierto tiempo pude descubrir que el error era que estaba usando la misma routing key para las dos colas. 
-Posterior a esto pude settear correctamente mi máquina virtual en amazon y ejecutar la comunicación por RabbitMQ. Luego pasé a hacer
-que el microservicio devolviera una respuesta, no sin antes tener varios problemas en los que se destaca que no se devolvia un mensaje o se devolvia 
-el mismo mensaje que se enviaba. Al final logré hacer que el microservicio devolviera un json con los archivos listados, con lo que tenia la primera
-parte del proyecto finalizada. 
-Posteriormente puse manos a la obra en hacer el API Gateway, este aparentemente fue fácil de hacer, con la excepción de que al principio no lo estaba
-configurando bien para que escuchara peticiones de IPs externas, y ademas no habia configurado una regla de entrada para la instancia EC2 para que 
-escuchara de IPs externas por este puerto. 
-Luego procedí a desarrollar el microservicio y la comunicación con gRPC, esto fue lo que menos tiempo me tomó a pesar de que de nuevo me enfrenté a multiples 
-errores y problemas con instalaciones, inclusiones, nombres y otras cosas.
-Luego hice unos scripts de shell para que se instalaran las dependencias necesarias y se setteara el ptoyecto completo sin necesidad de tener que 
-entrar a la consola. Y por ultimo programe un servicio del sistema para que se lanzen todos los servidores al iniciar
+Durante el desarrollo se me presentaron varios problemas que tarde mucho en resolver, ya que en algunas partes me quede bloqueado con problemas
+sobre los que no tenia demasiado control como problemas de GCP. Por ende el el proyecto tomó más tiempo de desarrollo de lo esperado y al igual
+que el anterior reto se puede considerar que me tomó el tiempo de un proyecto.
 
+Para enfrentarme a este reto tomé un enfoque de ir configurando y testeando los nodos más bajos en la arquitectura y posteriormente ir 
+escalando hacia arriba. Lo primero que se hizo fue montar wordpress monolitico en una máquina, posteriormente se creó otra máquina y se montó
+la base de datos mysql y de nuevo el wordpress pero con la base de datos remota. El siguiente paso en el desarrollo fue montar el NFS server
+en otra instancia y de nuevo montar el wordpress, pero con la base de datos remota y el sistema de archivos sobre la máquina con el servidor NFS. Posterior
+a esto monté una segunda instancia con las mismas caracteristicas.
+
+Luego de tener esta parte baja de la arquitectura terminada, puse manos a la obra sobre una nueva instancia, en la que monté NGINX para
+balancear la carga a las dos instancias de Wordpress. Luego de que esto funcionará obtuve un dominio en Hostinger y lo asocié a la IP de 
+mi máquina NGINX. Finalmente obtuve los certificados SSL mediante certbor y di por finalizado el proyecto.
 
 ## Detalles técnicos
 
@@ -141,12 +143,8 @@ reglas de entrada.
 
 ## Descripción y como se configura los parámetros del proyecto
 
-Para configurar los parametros con los que se va a ejecutar el proyecto se tiene un archivo de configuración por cada nodo en el proyecto que
-recibe o envia datos. Por ejemplo para la api se tiene un archivo llamado api_config.py en donde se ponen parametros básicos como puerto y host.
-De la misma forma cada microservicio tiene su archivo de configuración, al igual que los clientes que solicitan recursos a los microservicios.
-.
-Configuración de un microservicio:
-   ![image](https://user-images.githubusercontent.com/57159295/222545629-f78550dd-8861-4cc5-a883-1c60cc58753c.png)
+Al crear las máquinas en GCP con Ubuntu 22 hay que permitir trafico http y https(Para el NGINX).
+Además se recomienda para la instancia de NGINX configurar una IP estatica.
 
 
 ## ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
