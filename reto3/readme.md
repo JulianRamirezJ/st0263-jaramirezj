@@ -68,54 +68,91 @@ En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpr
 
 Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación:
  Las dependencias necesarias para que el proyecto funcione que deben ser instaladas son:
-  1. Instalar python 3 (sudo apt install python3 )
-  2. Instalar docker:
-     sudo apt install docker.io -y
-     sudo apt install docker-compose -y
-     sudo apt install git -y
-     sudo systemctl enable docker
-     sudo systemctl start docker
-     sudo usermod -a -G docker ubuntu
-  3. Instalar la libreria de python pika. ( pip3 install pika ) 
-  4. Instalar la libreria de python json. ( pip3 install json ) 
-  5. Instalar la libreria de python os. ( pip3 install os ) 
-  6. Instalar la libreria grpcio con la utilidad grpcio-tools ( pip3 install grpcio grpcio-tools )
- 
-Para ejecutarlo por primera vez se siguen los pasos a continuación(En un entorno de desarrollo):
-
-   1.Estar posicionado en el directorio del proyecto que es 'st0263-jaramirezj/reto2'.
-   
-   1.Asegurarse de que todas las reglas de entrada esten configuradas correctamente. Esto se especifica en la sección Detalles Técnicos.
-   
-   2. En el directorio del proyecto ejecute este comando para montar el servidor de RabbitMQ:
-   docker run -d --hostname my-rabbit -p 15672:15672 -p 5672:5672 --name rabbit-server -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-   management 
-   
-   3. Ingresar a la dirección http://IP:15672, esto lo llevará al panel de administración de rabbitmq, ingree con user = user y password=password. Luego
-      ingrese a la subpagina exchange y cree un nuevo exchange con el nombre 'file_listing'. Luego vaya a la subpagina Queues y cree dos colas de
-      tipo 'Classic' con los nombres 'request_files' y 'receive_files'. A continuación regrese a la subpágina de exchange e ingrese a el exchange 'file_listing'
-      que creamos anteriormente, dirijase a la parte inferior y donde dice bind hay que asociar las dos colas que creamos a este exchange. Para esto debe
-      escribir el nombre de la cola y la routing key. Para 'request_files' routing_key='request' y para 'receive_files' routing_key='receive'
-   
-   4. En caso de que aún no se haya compilado el archivo service.proto(Ya estan incluidos los archivos compilados en el repositorio), se debe 
-    ejecutar el siguiente: python3 -m grpc_tools.protoc -I ./grpc_client --python_out=. \ --grpc_python_out=. ./service.proto
-   
-   5. Ejecutar el comando: docker start rabbit-server
-  
-   6. Luego se abre 3 terminales en ingrese a la carpeta del proyecto,posteriormente ejecute lo siguiente:
-     
-     6.1. En la primera terminal ingrese a la ruta /microservice1 y ejecute 'python3 ms1_mom.py'. Con esto ya tenemos funcionando 
-      el microservicio 1.
+ Primero que todo cree 5 máquinas en GCP y clone el repositorio con los archivos del proyecto. Además posicionese
+ en cada servidor en la carpeta que va a hacer uso. Ej: Para montar el servidor de base de datos pocisionarse en 'db_server'.
+  # WordPress Servers:  
+    En las maquinas que va a correr wordpress se debe ejecutar lo siguiente:
+    1. Primero docker y git:
+        sudo apt update
+        sudo apt install docker.io -y
+        sudo apt install docker-compose -y
+        sudo apt install git -y
+        sudo systemctl enable docker
+        sudo systemctl start docker
+    2. Luego montar el nfs:
+        sudo apt update
+        sudo apt install nfs-common
+        sudo mkdir -p /var/www/html
+        sudo mount {$nfs_server_ip}:/var/www/html /mnt/wordpress
+    3.Asegurarse de que el puerto y la ip sea el indicado en la env_file.txt
+    3. Finalmente ejecutamos el composer:
+        sudo docker-compose -f docker-compose-solo-wordpress.yml up
+    *Tenga en cuenta que para los pasos 2 y 4 es prerequisito tener corriendo la base de datos y el nfs.
+   # Wordpress DB
+      En las maquina que va a correr la DB debe ejecutar lo siguiente:
+      1.Docker y git de nuevo:
+         sudo apt update
+        sudo apt install docker.io -y
+        sudo apt install docker-compose -y
+        sudo apt install git -y
+        sudo systemctl enable docker
+        sudo systemctl start docker
+      2.Asegurarse de que el puerto se el indicado en la env_file.txt
+      3.Ejecutar el compose:
+            docker-compose -f docker-compose-solo-wordpress-db.yml up
+            
+   # NFS SERVER
+     En las maquina que va a correr el NFS debe ejecutar lo siguiente:
+     1.Instalamos.
+      sudo apt update
+      sudo apt install nfs-kernel-server
+     2.Creamos el directorio a compartir y modificamos permisos
+        sudo mkdir /var/www/html -p
+        sudo chown nobody:nogroup /var/www/html
+     3. Nos dirigimos a 'sudo nano /etc/exports' y añadimos las siguientes lineas con las IPs de los clientes wordpress:
+          /var/www/html    client_ip1(rw,sync,no_subtree_check)
+          /var/www/html    client_ip2(rw,sync,no_subtree_check)
+     4.Recargamos y activamos ufw
+      sudo systemctl restart nfs-kernel-server
+      sudo ufw enable
+     5. Finalmente permitimos el trafico hacia esas IPs
+      sudo ufw allow from client_ip1 to any port nfs
+      sudo ufw allow from client_ip2 to any port nfs
       
-      6.2. En la segunda terminal ingrese a la ruta /grpc_client y ejecute 'python3 ms2_grpc.py'. Con esto ya tenemos funcionando 
-      el microservicio 2.
-      
-      6.3. En la tercera terminal ejecute 'python3 server.py' para que se ejecute la API.
-     
- En este punto ya se tendria todo listo, y se podria empezar a hacer peticiones a la API.
- 
- En la sección de como se lanzan los servidores en el ambiente de ejecución, se ilustra una forma mejor y más rapida de poner
- todo a funcionar luego de que ya se han hecho las configuraciones iniciales
+   # NGINX
+       En las maquina que va a correr el NGINX debe ejecutar lo siguiente:
+       1.Instalamos.
+         sudo apt update
+         sudo add-apt-repository ppa:certbot/certbot
+         sudo apt-get install certbot python3-certbot-nginx
+         sudo apt install letsencrypt -y
+         sudo apt install nginx -y
+        2. Vamos a 'sudo nano st0263/reto3/proxy-lb/nginx.conf'
+           Y debemos editar las IPs de las instancias de wordpress en esta sección:
+               upstream wordpress_servers {
+                  server 10.128.0.2;
+                  server 10.128.0.5;
+                }
+        3. Creamos el siguiente directorio:
+             sudo mkdir -p /var/www/letsencrypt
+        3.Generamos el certificado para registros especificos(1) y para todo el dominio(2)
+              (1) sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d julianrjdev.site --manual --preferred-challenges dns-01 certonly
+              (2) sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.julianrjdev.site --manual --preferred-challenges dns-01 certonly
+           *Para ambos casos seguir las intruscciones de generar un TXT en el dominio.
+        4.Reemplazar estas rutas en nginx.conf con las de los cretificados generados.
+            ssl_certificate /etc/letsencrypt/live/julianrjdev.site-0001/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/julianrjdev.site-0001/privkey.pem;
+        5. Por ultimo recargamos nginx y ya estaria
+           sudo service nginx reload
+           
+   #DNS
+     Consiga un nombre de dominio y configure los siguientes registros en el DNS:
+       julianrjdev.site A @ ip_server 
+        www CNAME julianrjdev.site
 
+ 
+ En este punto ya se tendria todo listo, y se podria ingresar a la pagina de wordpress sin problema.
+ 
 
 ## Detalles del desarrollo
 
@@ -135,11 +172,8 @@ mi máquina NGINX. Finalmente obtuve los certificados SSL mediante certbor y di 
 
 ## Detalles técnicos
 
-Hay que configurar las reglas de entrada para la instancia EC2, para que la comunicación por los puertos se de sin problemas. 
-A continuación se muestra como están configuradas las reglas de entrada:
-    ![image](https://user-images.githubusercontent.com/57159295/222557811-ee45f35e-d8f1-4345-bd2a-19b99e8881b7.png)
-Nota: Tenga en cuenta que si modifica los puertos en los archovos de configuración, deberá por ende modificar las
-reglas de entrada.
+Al crear las máquinas en GCP con Ubuntu 22 hay que permitir trafico http y https(Para el NGINX).
+Además se recomienda para la instancia de NGINX configurar una IP estatica.
 
 ## Descripción y como se configura los parámetros del proyecto
 
@@ -149,92 +183,59 @@ Además se recomienda para la instancia de NGINX configurar una IP estatica.
 
 ## ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
 ## 
-Los archivos más importantes del proyecto son 'server.py' que contiene la API, los archivos mom/mom.py y grpc_client/grpc_c.py que 
-permiten establecer comunicación con los microservicios(Clientes). Y los archivos microservice1/ms1_mom.py y grpc_client/ms2_grpc.py que son
-los que contienen el codigo de los microservicios.
-![image](https://user-images.githubusercontent.com/57159295/222546363-0aaf4c82-1c02-4905-8192-aeed1cf697fd.png)
 
+A continuación se puede ver la estructura de directorios del proyecto, hay que tener muy en cuenta que cada carpeta representa
+los scripts  o instrucciones para una máquina o nodo en especifico del proyecto. Para el caso de los componentes que están dockerizados el archivo más importante es 
+el .yml, Para los demás componentes depende bastante, por ejemplo en DNS solo se tiene un archivo que describe que se hizo para obtener
+y configurar el DNS. A continuación se describe cada carpeta:
+- Tenemos entonces la carpeta db-server con el archivo para montar la imagen de docker y otros auxiliares con variables de entorno, instalación
+  ejecución del composer.
+-Tenemos la carpeta DNS con la descripción del proceso de configuración.
+- Tenemos la carpeta del NFS con los comandos para montar el servidor.
+- Tenemos la carpeta proxy-lb con la instalación de lo necesario, la configuración de nginx y la solicitud del ssl.
+- Tenemos la carpeta wordpress_server con el archivo para montar la imagen de docker y otros auxiliares con variables de entorno,
+  instalación,montar el nfs y ejecutar el composer.
+![image](https://user-images.githubusercontent.com/57159295/227059570-6900a345-c6d0-4e26-bcea-da6ecd488d74.png)
 
-## Resultados o pantallazos (En desarollo)
-
-A continuación se muestran los servicios funcionando:
-
-Servidor(API) funcionando:
-![image](https://user-images.githubusercontent.com/57159295/222574650-3b0ded24-4c08-4b40-932e-296d21f33815.png)
-
-Microservicio 1 Funcionando:
-![image](https://user-images.githubusercontent.com/57159295/222574724-cac070b8-83f8-45d8-bd26-8b1bcdcdfd53.png)
-
-Microservicio 2 Funcionando:
-![image](https://user-images.githubusercontent.com/57159295/222574798-63e149d9-f4ae-48a2-ad99-ea3aaa9d896d.png)
 
 
 # 4. Descripción del ambiente de EJECUCIÓN (en producción)
 
 # IP o nombres de dominio en nube o en la máquina servidor.
 
-Para que se puedan hacer peticiones al la API sin necesidad de volver a consultar la IP de la instancia EC2, 
-la IP de la máquina se fijó a través de una IP elastica, esta es: 44.213.230.177, además se debe tener en cuenta que
-para conectarse a la api se tiene que usar el puerto '5000' e interiormente la api está configurada para funcionar sobre la
-dirección '/api?list', donde list puede enviarse sin parametros o con un parametro del tipo '.txt' o '.py'.
-Una dirección completa para conectarse a la api sería '44.213.230.177:5000/api?list=.txt'
+Para que se pueda acceder al proyecto sin necesidad de memorizarse una IP especifica se tiene un nombre 
+de dominio, que en este caso es julianrjdev.site o www.julianrjdev.site, esto redireccionará por defecto
+a https://julianrjdev.site.
 
 ## Como se lanza el servidor.
 
-Para lanzar el servidor y los microservicios luego de que todo se haya configurado todo, dirijase al
-directorio del proyecto y ejecute el comando './start_servers.sh'. Este archivo pondrá a funcionar el proyecto.
-En este script se encuentra el siguiente código:
-
-    docker start rabbit-server
-    python3 microservice1/ms1_mom.py &
-    sleep 0.2
-    python3 grpc_client/ms2_grpc.py &
-    sleep 0.2
-    python3 server.py &
-    
-Para evitar tener que hacer estos pasos de manera manual, se tiene una forma alternativa que lo que hace es 
-ejecutar el script anterior cuando se inicia la instancia. Esto se logra a partir
-de crear un archivo .service en la carpeta /etc/systemd/system , que contiene el siguiente código:
-
-    [Unit]
-    Description=Start servers
-    [Service]
-    Type=simple
-    ExecStart=/home/ubuntu/st0263-jaramirezj/reto2/start_servers.sh
-    [Install]
-    WantedBy=multi-user.target
-
+Después de la configuración inicial los servicios tanto de NGINX como de Docker se levantan automaticamente
+al iniciar la máquina por lo que no se necesita ejecutar nada.
 
 
 ## Guia de como un usuario utilizaría el software o la aplicación
 
-Un usuario podría utilizar la aplicación mediante POSTMAN o similares, o desde una terminal.
-Para POSTMAN simplemente seria configurar el tipo de petición cómo GET y poner la dirección del proyecto, 
-en este caso http://IP:5000/api?list , también podria ser http://IP:5000/api?list=.txt o http://IP:5000/api?list=.py
-Desde la terminal podriamos ejecutar el comando curl así: curl -X GET  http://IP:5000/api?list=.txt
+Un usuario podría utilizar la aplicación simplemente ingresando en el navegador la URL del
+proyecto que es julianrjdev.site o www.julianrjdev.site
+Al hacer esto le saldria la pagina por defecto de WordPress.
 
 ## Resultados o pantallazos (En producción)
 
-Ejecución de solicitud GET desde la misma máquina:
-![image](https://user-images.githubusercontent.com/57159295/222576023-46c1df0a-e0dc-4e7d-8c8e-b2ad1b5563a7.png)
+A continuación se muestra el proyecto funcionando:
 
-Ejecución desde POSTMAN y un IP externa:
-Petición simple
-![image](https://user-images.githubusercontent.com/57159295/222915689-61cda0d6-b7a2-410c-b857-934cc5d8e860.png)
+Sitio wordpress corriendo:
+![image](https://user-images.githubusercontent.com/57159295/227061001-00023103-d8f0-4963-b4ce-c26408def943.png)
 
-Petición para buscar un tipo de archivo especifico(.txt)
-![image](https://user-images.githubusercontent.com/57159295/222916140-cb488173-ec07-4d41-9798-73d7309c2c58.png)
-
-Petición para buscar un tipo de archivo especifico(.py)
-![image](https://user-images.githubusercontent.com/57159295/222973420-0ee03303-92dd-48aa-b8d9-af5391f9a82f.png)
+Acceso por HTTPS(Por defecto):
+![image](https://user-images.githubusercontent.com/57159295/227061133-ad707d93-1b10-4217-b6fd-01781ce38837.png)
 
 
 # referencias:
-## Codigo de Edwin Montoya - Profesor
-       https://github.com/st0263eafit/st0263-231/tree/main/rabbitmq-python
-## Quickstart - Oficial Flask documentation
-      https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
-## Oficial RabbitMQ documentation
-      https://www.rabbitmq.com/getstarted.html
+## Guia y comandos de Edwin Montoya - Profesor
+      https://github.com/st0263eafit/st0263-231/tree/main/docker-nginx-wordpress-ssl-letsencrypt
+## How To Set Up an NFS Mount on Ubuntu 22.04
+      https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-22-04
+## certbot instructions (Certbot with NGINX and Ubuntu)
+      https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
 #### versión README.md -> 1.0 (2023-Marzo)
