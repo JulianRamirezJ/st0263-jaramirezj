@@ -37,8 +37,7 @@ En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpr
  Otro requerimiento cumplido es que todos los servicios se levantan al iniciar la instancia.
  
  ## 1.2. Que aspectos no cumplió o no desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
- En general se cumplieron paracticamente todos los aspectos propuestos, lo único que se podría agregar a futuro es dockerizar el
- NGINX anunque no es necesario ni urgente.
+ En general se cumplieron practicamente todos los aspectos propuestos.
  
 # 2. Información general de diseño de alto nivel y arquitectura
 
@@ -64,13 +63,13 @@ En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpr
    - Para obtener los certificados ssl se hizo uso de certbot.
    - Para realizar el balanceador de carga se hizo uso de NGINX.
 
-## Como se compila y ejecuta.
+# Como se compila y ejecuta.
 
 Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación:
  Las dependencias necesarias para que el proyecto funcione que deben ser instaladas son:
  Primero que todo cree 5 máquinas en GCP y clone el repositorio con los archivos del proyecto. Además posicionese
  en cada servidor en la carpeta que va a hacer uso. Ej: Para montar el servidor de base de datos pocisionarse en 'db_server'.
-  # WordPress Servers:  
+  ## WordPress Servers:  
     En las maquinas que va a correr wordpress se debe ejecutar lo siguiente:
     1. Primero docker y git:
         sudo apt update
@@ -84,11 +83,18 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
         sudo apt install nfs-common
         sudo mkdir -p /var/www/html
         sudo mount {$nfs_server_ip}:/var/www/html /mnt/wordpress
-    3.Asegurarse de que el puerto y la ip sea el indicado en la env_file.txt
-    3. Finalmente ejecutamos el composer:
+    3. Montar el nfs en boot
+       En el archivo
+          sudo nano /etc/fstab
+       Añadimos esta linea
+           host_ip:/var/www/html    /mnt/wordpress  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+       
+    4.Asegurarse de que el puerto y la ip sea el indicado en la env_file.txt
+    5. Finalmente ejecutamos el composer:
         sudo docker-compose -f docker-compose-solo-wordpress.yml up
     *Tenga en cuenta que para los pasos 2 y 4 es prerequisito tener corriendo la base de datos y el nfs.
-   # Wordpress DB
+    
+   ## Wordpress DB
       En las maquina que va a correr la DB debe ejecutar lo siguiente:
       1.Docker y git de nuevo:
          sudo apt update
@@ -101,7 +107,7 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
       3.Ejecutar el compose:
             docker-compose -f docker-compose-solo-wordpress-db.yml up
             
-   # NFS SERVER
+   ## NFS SERVER
      En las maquina que va a correr el NFS debe ejecutar lo siguiente:
      1.Instalamos.
       sudo apt update
@@ -119,7 +125,7 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
       sudo ufw allow from client_ip1 to any port nfs
       sudo ufw allow from client_ip2 to any port nfs
       
-   # NGINX
+   ## NGINX
        En las maquina que va a correr el NGINX debe ejecutar lo siguiente:
        1.Instalamos.
          sudo apt update
@@ -145,7 +151,7 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
         5. Por ultimo recargamos nginx y ya estaria
            sudo service nginx reload
            
-   #DNS
+   ## DNS
      Consiga un nombre de dominio y configure los siguientes registros en el DNS:
        julianrjdev.site A @ ip_server 
         www CNAME julianrjdev.site
@@ -200,6 +206,10 @@ y configurar el DNS. A continuación se describe cada carpeta:
 
 
 # 4. Descripción del ambiente de EJECUCIÓN (en producción)
+
+El proyecto está montando sobre unas insancias de GCP, luego, se tiene un DNS que apunta a la instancia
+con NGINX y a su vez esta balancea carga para wordpress.
+Para probar o ejecutar el proyecto basta con tener un browser y acceder a julianrjdev.site
 
 # IP o nombres de dominio en nube o en la máquina servidor.
 
