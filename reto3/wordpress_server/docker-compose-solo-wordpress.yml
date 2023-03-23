@@ -4,12 +4,14 @@ services:
     container_name: wordpress
     image: wordpress
     ports:
-      - 80:80      
+      - ${WORDPRESS_DB_PORT}  
     restart: always
     environment:
-      WORDPRESS_DB_HOST: 10.128.0.3
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
     volumes:
       - /mnt/wordpress:/var/www/html
+    env_file:
+      - ./env_file.txt
