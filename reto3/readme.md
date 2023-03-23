@@ -66,10 +66,12 @@ Para resumir lo logrado en el reto: Tenemos que hay un nombre de dominio con un 
 
 # Como se compila y ejecuta.
 
-Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación:
- Las dependencias necesarias para que el proyecto funcione que deben ser instaladas son:
+Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
+ 
  Primero que todo cree 5 máquinas en GCP y clone el repositorio con los archivos del proyecto. Además posicionese
  en cada servidor en la carpeta que va a hacer uso. Ej: Para montar el servidor de base de datos pocisionarse en 'db_server'.
+ A continuación siga los pasos para montar los servicios en cada máquina especifica.
+ 
   ## WordPress Servers:  
     En las maquinas que va a correr wordpress se debe ejecutar lo siguiente:
     1. Primero docker y git:
@@ -79,11 +81,13 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
         sudo apt install git -y
         sudo systemctl enable docker
         sudo systemctl start docker
+        
     2. Luego montar el nfs:
         sudo apt update
         sudo apt install nfs-common
         sudo mkdir -p /var/www/html
         sudo mount {$nfs_server_ip}:/var/www/html /mnt/wordpress
+        
     3. Montar el nfs en boot
        En el archivo
           sudo nano /etc/fstab
@@ -91,6 +95,7 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
            host_ip:/var/www/html    /mnt/wordpress  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
        
     4.Asegurarse de que el puerto y la ip sea el indicado en la env_file.txt
+    
     5. Finalmente ejecutamos el composer:
         sudo docker-compose -f docker-compose-solo-wordpress.yml up
     *Tenga en cuenta que para los pasos 2 y 4 es prerequisito tener corriendo la base de datos y el nfs.
@@ -98,57 +103,68 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
    ## Wordpress DB
       En las maquina que va a correr la DB debe ejecutar lo siguiente:
       1.Docker y git de nuevo:
-         sudo apt update
-        sudo apt install docker.io -y
-        sudo apt install docker-compose -y
-        sudo apt install git -y
-        sudo systemctl enable docker
-        sudo systemctl start docker
+          sudo apt update
+          sudo apt install docker.io -y
+          sudo apt install docker-compose -y
+          sudo apt install git -y
+          sudo systemctl enable docker
+          sudo systemctl start docker
+        
       2.Asegurarse de que el puerto se el indicado en la env_file.txt
+      
       3.Ejecutar el compose:
             docker-compose -f docker-compose-solo-wordpress-db.yml up
             
    ## NFS SERVER
      En las maquina que va a correr el NFS debe ejecutar lo siguiente:
      1.Instalamos.
-      sudo apt update
-      sudo apt install nfs-kernel-server
+        sudo apt update
+        sudo apt install nfs-kernel-server
+      
      2.Creamos el directorio a compartir y modificamos permisos
         sudo mkdir /var/www/html -p
         sudo chown nobody:nogroup /var/www/html
+        
      3. Nos dirigimos a 'sudo nano /etc/exports' y añadimos las siguientes lineas con las IPs de los clientes wordpress:
           /var/www/html    client_ip1(rw,sync,no_subtree_check)
           /var/www/html    client_ip2(rw,sync,no_subtree_check)
+          
      4.Recargamos y activamos ufw
-      sudo systemctl restart nfs-kernel-server
-      sudo ufw enable
+        sudo systemctl restart nfs-kernel-server
+        sudo ufw enable
+      
      5. Finalmente permitimos el trafico hacia esas IPs
-      sudo ufw allow from client_ip1 to any port nfs
-      sudo ufw allow from client_ip2 to any port nfs
+        sudo ufw allow from client_ip1 to any port nfs
+       sudo ufw allow from client_ip2 to any port nfs
       
    ## NGINX
        En las maquina que va a correr el NGINX debe ejecutar lo siguiente:
        1.Instalamos.
-         sudo apt update
-         sudo add-apt-repository ppa:certbot/certbot
-         sudo apt-get install certbot python3-certbot-nginx
-         sudo apt install letsencrypt -y
-         sudo apt install nginx -y
+           sudo apt update
+           sudo add-apt-repository ppa:certbot/certbot
+           sudo apt-get install certbot python3-certbot-nginx
+           sudo apt install letsencrypt -y
+           sudo apt install nginx -y
+           
         2. Vamos a 'sudo nano st0263/reto3/proxy-lb/nginx.conf'
            Y debemos editar las IPs de las instancias de wordpress en esta sección:
                upstream wordpress_servers {
                   server 10.128.0.2;
                   server 10.128.0.5;
                 }
+                
         3. Creamos el siguiente directorio:
              sudo mkdir -p /var/www/letsencrypt
+             
         3.Generamos el certificado para registros especificos(1) y para todo el dominio(2)
               (1) sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d julianrjdev.site --manual --preferred-challenges dns-01 certonly
               (2) sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.julianrjdev.site --manual --preferred-challenges dns-01 certonly
            *Para ambos casos seguir las intruscciones de generar un TXT en el dominio.
+           
         4.Reemplazar estas rutas en nginx.conf con las de los cretificados generados.
             ssl_certificate /etc/letsencrypt/live/julianrjdev.site-0001/fullchain.pem;
             ssl_certificate_key /etc/letsencrypt/live/julianrjdev.site-0001/privkey.pem;
+            
         5. Por ultimo recargamos nginx y ya estaria
            sudo service nginx reload
            
@@ -156,8 +172,9 @@ Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuac
      Consiga un nombre de dominio y configure los siguientes registros en el DNS:
        julianrjdev.site A @ ip_server 
         www CNAME julianrjdev.site
-
- 
+        
+   Cuando ya tenga todo montao ingrese a al dominio)(julianrjdev.site) y  se le pediran algunos datos para completar la instalación
+   de wordpress, simplemente llenelos, envielos y terminará el proceso.
  En este punto ya se tendria todo listo, y se podria ingresar a la pagina de wordpress sin problema.
  
 
@@ -175,7 +192,7 @@ a esto monté una segunda instancia con las mismas caracteristicas.
 
 Luego de tener esta parte baja de la arquitectura terminada, puse manos a la obra sobre una nueva instancia, en la que monté NGINX para
 balancear la carga a las dos instancias de Wordpress. Luego de que esto funcionará obtuve un dominio en Hostinger y lo asocié a la IP de 
-mi máquina NGINX. Finalmente obtuve los certificados SSL mediante certbor y di por finalizado el proyecto.
+mi máquina NGINX. Finalmente obtuve los certificados SSL mediante certbot y di por finalizado el proyecto.
 
 ## Detalles técnicos
 
@@ -184,8 +201,9 @@ Además se recomienda para la instancia de NGINX configurar una IP estatica.
 
 ## Descripción y como se configura los parámetros del proyecto
 
-Al crear las máquinas en GCP con Ubuntu 22 hay que permitir trafico http y https(Para el NGINX).
-Además se recomienda para la instancia de NGINX configurar una IP estatica.
+Para configurar los parametros del proyecto se tienen una env_file.txt con las ips y puertos
+para docker, si necesita cambiar algo simplemente especifiquelo ahi.
+Para los demás componentes las configuraciones de parametros }se hacen como se presentaron en la guia.
 
 
 ## ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
