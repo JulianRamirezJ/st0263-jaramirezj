@@ -8,7 +8,7 @@
 # Wordpress con NGINX, NFS server y MySQL 
 #
 
-## 1. 
+## 1. Descripción del proyecto
 En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpress con 5 componentes, que son:
   
   - Un servidor con balanceador de carga NGINX que balancea entre dos instancias wordpress.
@@ -16,7 +16,7 @@ En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpr
     ya que realmente los archivos de wordpress y la base de datos están en otros servidores.
   - Un servidor con una base de datos de wordpress.
   - Un servidor NFS para los ficheros del wordpress que corren en las maquinas mencionadas anteriormente.
-  - 
+  
  Además de esto es importante mencionar que se utilizó docker para poner en contenedores la mayoria de las componentes
  anteriormente mencionadas.
  
