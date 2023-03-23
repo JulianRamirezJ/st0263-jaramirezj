@@ -22,7 +22,8 @@ En esta actividad se realizó el desarrollo y montaje de una arquitectura wordpr
  
  Por otro lado se tiene un dominio y un DNS que apunta a la IP del nginx. De forma adicional se obtuvieron los certificados ssl
  para permitir la conexion por https.
- Para resumir lo logrado en el reto: Tenemos que hay un nombre de dominio con un DNS que apunta a la instancia que corre el NGINX,este
+
+Para resumir lo logrado en el reto: Tenemos que hay un nombre de dominio con un DNS que apunta a la instancia que corre el NGINX,este
  balancea la carga  entre dos servidores que corren wordpress pero que no tienen los archivos de este en local, sino que estos se encuentran
  en otra instancia que corre un servidor NFS y sirve esos archivos a las dos instancias. Finalmente este wordpress hace uso de una base de datos 
  wordpress que está en otra instancia de GCP.
