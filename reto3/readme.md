@@ -234,7 +234,7 @@ Para probar o ejecutar el proyecto basta con tener un browser y acceder a julian
 
 Para que se pueda acceder al proyecto sin necesidad de memorizarse una IP especifica se tiene un nombre 
 de dominio, que en este caso es julianrjdev.site o www.julianrjdev.site, esto redireccionará por defecto
-a https://julianrjdev.site.
+a https://julianrjdev.site
 
 ## Como se lanza el servidor.
 

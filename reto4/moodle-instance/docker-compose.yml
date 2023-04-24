@@ -1,0 +1,22 @@
+  GNU nano 6.2                                                                           docker-compose.yml                                                                                     
+version: '3.1'
+services:
+  moodle:
+    image: bitnami/moodle:4.1.2
+    container_name: moodle
+    restart: always
+    environment:
+      MOODLE_DATABASE_TYPE: mysqli
+      MOODLE_DATABASE_HOST: 34.28.116.19
+      MOODLE_DATABASE_PORT_NUMBER: 3306
+      MOODLE_DATABASE_USER: root
+      MOODLE_DATABASE_NAME: moodledb
+      MOODLE_DATABASE_PASSWORD: root
+      MOODLE_USERNAME: user
+      MOODLE_PASSWORD: root
+      MOODLE_SKIP_BOOTSTRAP: "no"
+    ports:
+      - '80:8080'
+      - '443:8443'
+    volumes:
+      - $HOME/volumes/moodle:/bitnami
