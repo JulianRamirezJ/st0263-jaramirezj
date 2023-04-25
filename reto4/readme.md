@@ -37,7 +37,10 @@ En definitiva, se ha logrado implementar una solución robusta y escalable para 
  
 ## 2. Información general de diseño de alto nivel y arquitectura
 ![Reto4Arquitectura](https://user-images.githubusercontent.com/57159295/234411215-8416c54e-d745-4544-ae2b-cb624c5d565e.png)
-Descripción de la arquitectura
+
+La arquitectura del proyecto se compone de cinco componentes esenciales, tal como se ilustra en la imagen anterior. El punto de entrada es el DNS, administrado por Hostinger, donde se aloja el dominio. A continuación, en el siguiente nivel de la arquitectura, se encuentra el balanceador de carga provisto por GCP, llamado Cloud Load Balancing. Este balanceador distribuye la carga a dos o más instancias de Moodle según la necesidad, ya que se cuenta con configuración de autoscaling en función del tráfico.
+
+En el siguiente nivel de la arquitectura, se encuentran las instancias de Moodle que están montadas sobre Docker y se ejecutan sobre instancias de Compute Engine. Estas instancias de Moodle no tienen el sistema de archivos de Moodle ni la base de datos alojados localmente, sino que se encuentran en servicios separados que se describen a continuación. La base de datos que sirve a Moodle se encuentra alojada en una instancia de Cloud SQL, mientras que el sistema de archivos de Moodle se aloja en un directorio compartido en Cloud Filestore.
 
 ## 3. Descripción del ambiente de desarrollo y técnico
 
@@ -53,14 +56,48 @@ Descripción de la arquitectura
 
 ## 4. Como se compila y ejecuta
 Para desarrollar, compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
- 
- 1. Crear una instancia de Cloud SQL
- 2. 
 
+ Dominio.
+  Obtener un dominio en hostinger
+ 
+ Base de datos:
+  1. Crear una instancia de Cloud SQL.
+  2. En esta instancia crear una nueva base de datos.
+  3. Luego ir a la parte de configuración de redes de la instancia y
+     permitir el trafico desde cualquier IP y puerto.
+  
+  Cloud Storage:
+  
+  Moodle:
+    Una vez se tangan configurados los anteriores items se puede pasar a montar las instancias moodle.
+    1. Instale las herramientas necesarias y clone el repo:
+            Docker y Git
+                sudo apt update
+                sudo apt install docker.io -y
+                sudo apt install docker-compose -y
+                sudo apt install git -y
+                sudo systemctl enable docker
+                sudo systemctl start docker
+          Repo
+            git clone https://github.com/JulianRamirezJ/st0263-jaramirezj.git
+    
+    2. Ingrese a la ruta reto4/moodle-instance. Aqui configure los parametros al
+        env_file.txt según como configuro la base de datos.
+        
+        Ahora puede correr el contenedor con el siguiente comando:
+                 
+                 docker-compose -f docker-compose.yml up
+  
+        Aquí debe esperar mientras se instalan las dependencias de Moodle en el FileStorage.
 
 ## 5. Detalles del desarrollo
 
-......
+El desarrollo se hizo de una forma ágil y eficiente gracias al trabajo en equipo de dos personas. Inicialmente, se realizaron pruebas con una arquitectura monolítica de Moodle que permitieron entender el funcionamiento del sistema y definir los siguientes pasos.
+Luego, se procedió a implementar la base de datos en Cloud SQL y conectarla con el Moodle. 
+Posteriormente, se configuró Cloud Filestore para alojar el sistema de archivos de Moodle y al mismo tiempo se hizo el cambio de almacenamiento local
+del Moodle a almacenamiento en File Store
+Después de tener la base de datos y el sistema de archivos en servicios administrados de GCP, se procedió a configurar el Load Balancing y el autoscaling en GCP, lo que permitió tener un sitio Moodle altamente disponible y escalable en función de la demanda de los usuarios.
+Finalmente, se configuró el DNS con certificados SSL obtenidos a través de Certbot, lo que permitió tener un sitio seguro y accesible a través de HTTPS. En resumen, se logró implementar un sitio Moodle altamente disponible, escalable y seguro, utilizando servicios administrados en GCP.
 
 ## 6. Detalles técnicos
 
