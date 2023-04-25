@@ -18,4 +18,6 @@ services:
       - '80:8080'
       - '443:8443'
     volumes:
-      - $HOME/mnt/moodle:/bitnami
+      - $HOME/mnt/moodle:/bitnami{
+    env_file:
+      "env_file.txt"
