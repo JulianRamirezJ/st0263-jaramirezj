@@ -11,16 +11,16 @@
 #
 
 ## 1. Descripción del proyecto
-En esta actividad se realizó el desarrollo y montaje de un sitio moodle con alta disponibilidad que conta de los siguientes componentes:
-  
-  - LB.....y Autoescaler
-  - Dos servidores con instancias de Moodle montadas en Docker, que pueden crecer a más según la necesidad. Estás instancias no incluyen el sistema
-    archivos de Moodle, ni la base de datos, ya que estos se encuentran en servicios remotos.
-  - Una base de datos que corre en una instancia SQL de GCP y que sirve como persistencia al Moodle.
-  - Una instancia del servicio X de GCP que actua commo un NFS para almacenar los archivosa de Moodle.
- 
- Por otro lado se tiene un dominio y un DNS que apunta a la IP del LB. De forma adicional se obtuvieron los certificados ssl
- para permitir la conexion por https.
+
+En esta actividad se ha desarrollado y montado un sitio Moodle con alta disponibilidad utilizando servicios administrados en Google Cloud Platform (GCP). El sitio cuenta con un balanceador de carga (LB) y un autoescaler que aseguran que los recursos sean asignados según las necesidades de los usuarios.
+
+El sitio se ha implementado en dos servidores que alojan instancias de Moodle en contenedores Docker. Estas instancias pueden crecer según las necesidades de los usuarios y no incluyen el sistema de archivos de Moodle ni la base de datos, ya que estos están alojados en servicios remotos de GCP.
+
+Para la persistencia de la base de datos de Moodle, se ha utilizado una instancia de SQL en GCP. Además, se ha utilizado una instancia del servicio X de GCP como NFS para almacenar los archivos de Moodle.
+
+Se ha configurado un dominio y un DNS para apuntar al LB, lo que permite que los usuarios accedan al sitio a través del enlace reto4.julianrjdev.site con conexión HTTPS, gracias a los certificados SSL obtenidos.
+
+En resumen, se ha implementado un sitio Moodle altamente disponible utilizando servicios administrados en GCP, lo que asegura la escalabilidad, disponibilidad y seguridad del sitio para los usuarios finales.
 
  Del lado del usuario final lo que se tiene es que se  puede acceder al enlace reto4.julianrjdev.site a través de https.
  
