@@ -6,11 +6,11 @@ services:
     restart: always
     environment:
       MOODLE_DATABASE_TYPE: mysqli
-      MOODLE_DATABASE_HOST: 10.73.128.3
-      MOODLE_DATABASE_PORT_NUMBER: 3306
-      MOODLE_DATABASE_USER: root
-      MOODLE_DATABASE_NAME: bitnami_moodle
-      MOODLE_DATABASE_PASSWORD: 12345
+      MOODLE_DATABASE_HOST: ${DB_HOST}
+      MOODLE_DATABASE_PORT_NUMBER: ${DB_PORT}
+      MOODLE_DATABASE_USER: ${DB_USER}
+      MOODLE_DATABASE_NAME: ${DB_NAME}
+      MOODLE_DATABASE_PASSWORD: ${DB_PASS}
       MOODLE_USERNAME: user
       MOODLE_PASSWORD: root
       MOODLE_SKIP_BOOTSTRAP: "yes"
@@ -18,6 +18,6 @@ services:
       - '80:8080'
       - '443:8443'
     volumes:
-      - $HOME/mnt/moodle:/bitnami{
+      - $HOME/mnt/moodle:/bitnami
     env_file:
-      "env_file.txt"
+      - ./env_file.txt
