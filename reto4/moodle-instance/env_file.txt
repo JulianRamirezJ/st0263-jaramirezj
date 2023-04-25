@@ -1,5 +1,5 @@
 DB_HOST=34.15.67.23
-DB_NAME=moodledb
-DB_PASS=root
-PORT_1="80:8080"
-PORT_2="443:8443"
+DB_PORT=3306
+DB_USER=root
+DB_PASS=12345
+DB_NAME=bitnami_moodle
