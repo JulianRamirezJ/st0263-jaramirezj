@@ -53,37 +53,7 @@ En esta actividad se realizó el desarrollo y montaje de un sitio moodle con alt
 # Como se compila y ejecuta.
 
 Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
- 
-    1. Primero docker y git:
-        sudo apt update
-        sudo apt install docker.io -y
-        sudo apt install docker-compose -y
-        sudo apt install git -y
-        sudo systemctl enable docker
-        sudo systemctl start docker
-       
-             
-        3.Generamos el certificado para registros especificos(1) y para todo el dominio(2)
-              (1) sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d julianrjdev.site --manual --preferred-challenges dns-01 certonly
-              (2) sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.julianrjdev.site --manual --preferred-challenges dns-01 certonly
-           *Para ambos casos seguir las intruscciones de generar un TXT en el dominio.
-           
-        4.Reemplazar estas rutas en nginx.conf con las de los cretificados generados.
-            ssl_certificate /etc/letsencrypt/live/julianrjdev.site-0001/fullchain.pem;
-            ssl_certificate_key /etc/letsencrypt/live/julianrjdev.site-0001/privkey.pem;
-            
-        5. Por ultimo recargamos nginx y ya estaria
-           sudo service nginx reload
-           
-   ## DNS
-     Consiga un nombre de dominio y configure los siguientes registros en el DNS:
-       julianrjdev.site A @ ip_server 
-        www CNAME julianrjdev.site
-        
-   Cuando ya tenga todo montao ingrese a al dominio)(reto4.julianrjdev.site) y  se le pediran algunos datos para completar la instalación
-   de wordpress, simplemente llenelos, envielos y terminará el proceso.
- En este punto ya se tendria todo listo, y se podria ingresar a la pagina de wordpress sin problema.
- 
+
 
 ## Detalles del desarrollo
 
@@ -102,7 +72,6 @@ Para los demás componentes las configuraciones de parametros }se hacen como se 
 
 ## ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
 ## 
-
 
 
 # 4. Descripción del ambiente de EJECUCIÓN (en producción)
