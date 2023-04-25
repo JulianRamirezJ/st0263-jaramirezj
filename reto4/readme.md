@@ -25,20 +25,20 @@ Se ha configurado un dominio y un DNS para apuntar al LB, lo que permite que los
 En resumen, se ha implementado un sitio Moodle altamente disponible utilizando servicios administrados en GCP, lo que asegura la escalabilidad, disponibilidad y seguridad del sitio para los usuarios finales. Del lado del usuario final, se puede acceder al enlace reto4.julianrjdev.site a través de HTTPS.
  
  
-## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+### 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
 
 El desafío planteado por el profesor consistía en implementar una arquitectura de alta disponibilidad para Moodle, haciendo uso de servicios administrados. Además, se requería obtener un nombre de dominio y certificados SSL para asegurar la conexión segura a la página.
 Estos requisitos se han cumplido satisfactoriamente y ahora es posible acceder a la página sin ningún problema. En cuanto a los aspectos no funcionales, se ha logrado cumplir con la premisa de utilizar exclusivamente servicios nativos de Google Cloud Platform para la base de datos, el NFS, el balanceador y el autoescalamiento.
 
 En definitiva, se ha logrado implementar una solución robusta y escalable para Moodle, haciendo uso de servicios gestionados y asegurando la disponibilidad, seguridad y eficiencia del sitio web.
 
- ## 1.2. Que aspectos no cumplió o no desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+ ### 1.2. Que aspectos no cumplió o no desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
  En general se cumplieron practicamente todos los aspectos propuestos.
  
-# 2. Información general de diseño de alto nivel y arquitectura
+## 2. Información general de diseño de alto nivel y arquitectura
 
 
-# 3. Descripción del ambiente de desarrollo y técnico
+## 3. Descripción del ambiente de desarrollo y técnico
 
 - Para implementar el proyecto se han utilizado instancias de GCP e2.micro con 10GB de almacenamiento, lo que ha permitido tener un entorno de desarrollo escalable y rentable.
 - Se ha instalado el sistema operativo Ubuntu 22.04 en cada instancia, ya que este sistema operativo es altamente compatible y fácil de manejar con los componentes utilizados en el proyecto.
@@ -53,40 +53,41 @@ En definitiva, se ha logrado implementar una solución robusta y escalable para 
 Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
 
 
-## Detalles del desarrollo
+## 4. Detalles del desarrollo
 
 ......
-## Detalles técnicos
+
+## 5. Detalles técnicos
 
 Al crear las máquinas en GCP con Ubuntu 22 hay que permitir trafico http y https(Para el NGINX).
 
 
-## Descripción y como se configura los parámetros del proyecto
+## 6. Descripción y como se configura los parámetros del proyecto
 
 Para configurar los parametros del proyecto se tienen una env_file.txt con las ips y puertos
 para docker, si necesita cambiar algo simplemente especifiquelo ahi.
 Para los demás componentes las configuraciones de parametros }se hacen como se presentaron en la guia.
 
 
-## ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
+## 7. ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
 ## 
 
 
-# 4. Descripción del ambiente de EJECUCIÓN (en producción)
+## 8. Descripción del ambiente de EJECUCIÓN (en producción)
 
-# IP o nombres de dominio en nube o en la máquina servidor.
+## 9. IP o nombres de dominio en nube o en la máquina servidor.
 
 Para que se pueda acceder al proyecto sin necesidad de memorizarse una IP especifica se tiene un nombre 
 de dominio, que en este caso es julianrjdev.site o www.julianrjdev.site, esto redireccionará por defecto
 a https://julianrjdev.site
 
-## Como se lanza el servidor.
+## 10. Como se lanza el servidor.
 
 Después de la configuración inicial los servicios tanto de NGINX como de Docker se levantan automaticamente
 al iniciar la máquina por lo que no se necesita ejecutar nada.
 
 
-## Guia de como un usuario utilizaría el software o la aplicación
+## 11. Guia de como un usuario utilizaría el software o la aplicación
 
 
 
