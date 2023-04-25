@@ -36,7 +36,8 @@ En definitiva, se ha logrado implementar una solución robusta y escalable para 
  En general se cumplieron practicamente todos los aspectos propuestos.
  
 ## 2. Información general de diseño de alto nivel y arquitectura
-
+![Reto4Arquitectura](https://user-images.githubusercontent.com/57159295/234411215-8416c54e-d745-4544-ae2b-cb624c5d565e.png)
+Descripción de la arquitectura
 
 ## 3. Descripción del ambiente de desarrollo y técnico
 
@@ -44,54 +45,58 @@ En definitiva, se ha logrado implementar una solución robusta y escalable para 
 - Se ha instalado el sistema operativo Ubuntu 22.04 en cada instancia, ya que este sistema operativo es altamente compatible y fácil de manejar con los componentes utilizados en el proyecto.
 - Docker ha sido una herramienta fundamental en el proyecto, ya que se ha utilizado para dockerizar los componentes de moodle, lo que ha permitido un despliegue más eficiente y escalable.
 - Moodle ha sido el CMS seleccionado para implementar el proyecto, lo que ha permitido desarrollar un sitio web altamente funcional y escalable para la gestión del VPL.
-- Para la persistencia de los datos se ha hecho uso de los servicios de GCP SQL, que ofrece una solución de base de datos escalable y altamente disponible.
+- Para la persistencia de los datos se ha hecho uso de los servicios de GCP Cloud SQL, que ofrece una solución de base de datos escalable y altamente disponible.
 - Para la creación de los directorios compartidos se ha utilizado Google Cloud Filestore, que proporciona compatibilidad con el protocolo NFSv3 y acceso seguro a los archivos.
 - La obtención de los certificados SSL se ha llevado a cabo utilizando Certbot, una herramienta gratuita y de código abierto que automatiza la obtención y renovación de certificados SSL.
 - Para la implementación del balanceador de carga se ha hecho uso de Google Cloud Load Balancing, un servicio administrado que proporciona un enrutamiento inteligente del tráfico y la distribución de carga entre múltiples instancias de backend en diferentes regiones.
 # Como se compila y ejecuta.
 
-Para compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
+## 4. Como se compila y ejecuta
+Para desarrollar, compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
+ 
+ 1. Crear una instancia de Cloud SQL
+ 2. 
 
 
-## 4. Detalles del desarrollo
+## 5. Detalles del desarrollo
 
 ......
 
-## 5. Detalles técnicos
+## 6. Detalles técnicos
 
 Al crear las máquinas en GCP con Ubuntu 22 hay que permitir trafico http y https(Para el NGINX).
 
 
-## 6. Descripción y como se configura los parámetros del proyecto
+## 7. Descripción y como se configura los parámetros del proyecto
 
 Para configurar los parametros del proyecto se tienen una env_file.txt con las ips y puertos
 para docker, si necesita cambiar algo simplemente especifiquelo ahi.
 Para los demás componentes las configuraciones de parametros }se hacen como se presentaron en la guia.
 
 
-## 7. ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
+## 8. ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
 ## 
 
 
-## 8. Descripción del ambiente de EJECUCIÓN (en producción)
+## 9. Descripción del ambiente de EJECUCIÓN (en producción)
 
-## 9. IP o nombres de dominio en nube o en la máquina servidor.
+## 10. IP o nombres de dominio en nube o en la máquina servidor.
 
 Para que se pueda acceder al proyecto sin necesidad de memorizarse una IP especifica se tiene un nombre 
 de dominio, que en este caso es julianrjdev.site o www.julianrjdev.site, esto redireccionará por defecto
 a https://julianrjdev.site
 
-## 10. Como se lanza el servidor.
+## 11. Como se lanza el servidor.
 
 Después de la configuración inicial los servicios tanto de NGINX como de Docker se levantan automaticamente
 al iniciar la máquina por lo que no se necesita ejecutar nada.
 
 
-## 11. Guia de como un usuario utilizaría el software o la aplicación
+## 12. Guia de como un usuario utilizaría el software o la aplicación
 
 
 
-# referencias:
+# 13. Referencias:
 ## Guia y comandos de Edwin Montoya - Profesor
       https://github.com/st0263eafit/st0263-231/tree/main/docker-nginx-wordpress-ssl-letsencrypt
 ## How To Set Up an NFS Mount on Ubuntu 22.04
