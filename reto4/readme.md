@@ -71,6 +71,7 @@ Para desarrollar, compilar y ejecutar el proyecto se siguieron los pasos listado
   Moodle:
     Una vez se tangan configurados los anteriores items se puede pasar a montar las instancias moodle.
     1. Instale las herramientas necesarias y clone el repo:
+    
             Docker y Git
                 sudo apt update
                 sudo apt install docker.io -y
@@ -80,8 +81,9 @@ Para desarrollar, compilar y ejecutar el proyecto se siguieron los pasos listado
                 sudo systemctl start docker
           Repo
             git clone https://github.com/JulianRamirezJ/st0263-jaramirezj.git
-    
-    2. Ingrese a la ruta reto4/moodle-instance. Aqui configure los parametros al
+            
+     2. Ahora realize el montaje del directorio compartido....
+     3. Ingrese a la ruta reto4/moodle-instance. Aqui configure los parametros al
         env_file.txt según como configuro la base de datos.
         
         Ahora puede correr el contenedor con el siguiente comando:
