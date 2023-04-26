@@ -122,13 +122,10 @@ Para los demás componentes las configuraciones de parametros }se hacen como se 
 ## 10. IP o nombres de dominio en nube o en la máquina servidor.
 
 Para que se pueda acceder al proyecto sin necesidad de memorizarse una IP especifica se tiene un nombre 
-de dominio, que en este caso es julianrjdev.site o www.julianrjdev.site, esto redireccionará por defecto
-a https://julianrjdev.site
+de dominio, que en este caso es ................, esto redireccionará por defecto
+a https://..........site
 
 ## 11. Como se lanza el servidor.
-
-Después de la configuración inicial los servicios tanto de NGINX como de Docker se levantan automaticamente
-al iniciar la máquina por lo que no se necesita ejecutar nada.
 
 
 ## 12. Guia de como un usuario utilizaría el software o la aplicación
