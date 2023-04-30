@@ -18,7 +18,7 @@ Se han utilizado instancias de GCP e2.micro con 10GB de almacenamiento, en las c
 
 Para la persistencia de la base de datos de Moodle, se ha utilizado una instancia de SQL en GCP. Además, se ha utilizado el servicio administrado de NFS de GCP para crear los directorios compartidos y almacenar los archivos de Moodle.
 
-Para obtener los certificados SSL se ha utilizado certbot, y para realizar el balanceador de carga se ha utilizado el servicio de balanceo de carga de GCP. De esta manera, se asegura una distribución eficiente de la carga de trabajo entre los servidores.
+Para obtener los certificados SSL se han utilizado los que porvee Google y para realizar el balanceador de carga se ha utilizado el servicio de balanceo de carga de GCP. De esta manera, se asegura una distribución eficiente de la carga de trabajo entre los servidores.
 
 Se ha configurado un dominio y un DNS para apuntar al LB, lo que permite que los usuarios accedan al sitio a través del enlace reto4.julianrjdev.site con conexión HTTPS.
 
@@ -50,47 +50,81 @@ En el siguiente nivel de la arquitectura, se encuentran las instancias de Moodle
 - Moodle ha sido el CMS seleccionado para implementar el proyecto, lo que ha permitido desarrollar un sitio web altamente funcional y escalable para la gestión del VPL.
 - Para la persistencia de los datos se ha hecho uso de los servicios de GCP Cloud SQL, que ofrece una solución de base de datos escalable y altamente disponible.
 - Para la creación de los directorios compartidos se ha utilizado Google Cloud Filestore, que proporciona compatibilidad con el protocolo NFSv3 y acceso seguro a los archivos.
-- La obtención de los certificados SSL se ha llevado a cabo utilizando Certbot, una herramienta gratuita y de código abierto que automatiza la obtención y renovación de certificados SSL.
+- La obtención de los certificados SSL se ha llevado a cabo utilizando los que provee Google, lo que permitió la generación y uso de estos de una forma rapida y confiable.
 - Para la implementación del balanceador de carga se ha hecho uso de Google Cloud Load Balancing, un servicio administrado que proporciona un enrutamiento inteligente del tráfico y la distribución de carga entre múltiples instancias de backend en diferentes regiones.
 # Como se compila y ejecuta.
 
 ## 4. Como se compila y ejecuta
-Para desarrollar, compilar y ejecutar el proyecto se siguieron los pasos listados a continuación.
+Para desarrollar, compilar y ejecutar el proyecto, se siguieron los siguientes pasos:
 
- Dominio.
-  Obtener un dominio en hostinger
- 
- Base de datos:
-  1. Crear una instancia de Cloud SQL.
-  2. En esta instancia crear una nueva base de datos.
-  3. Luego ir a la parte de configuración de redes de la instancia y
-     permitir el trafico desde cualquier IP y puerto.
-  
-  Cloud Storage:
-  
-  Moodle:
-    Una vez se tangan configurados los anteriores items se puede pasar a montar las instancias moodle.
-    1. Instale las herramientas necesarias y clone el repo:
-    
-            Docker y Git
-                sudo apt update
-                sudo apt install docker.io -y
-                sudo apt install docker-compose -y
-                sudo apt install git -y
-                sudo systemctl enable docker
-                sudo systemctl start docker
-          Repo
-            git clone https://github.com/JulianRamirezJ/st0263-jaramirezj.git
-            
-     2. Ahora realize el montaje del directorio compartido....
-     3. Ingrese a la ruta reto4/moodle-instance. Aqui configure los parametros al
-        env_file.txt según como configuro la base de datos.
-        
-        Ahora puede correr el contenedor con el siguiente comando:
-                 
-                 docker-compose -f docker-compose.yml up
-  
-        Aquí debe esperar mientras se instalan las dependencias de Moodle en el FileStorage.
+1. Se creó una instancia de Filestore con las siguientes configuraciones:
+- Tipo de Básica
+- HDD
+
+2. Se creó una instancia de Cloud SQL de MySQL con los recursos mínimos posibles, y se estableció el grupo de seguridad por defecto para conexiones en el mismo entorno.
+
+3. Se creó una base de datos llamada "bitnami_moodle".
+
+4. Se levantó una instancia de prueba para montar datos en la base de datos y en el NFS utilizando el siguiente script:
+
+```docker
+#! /bin/bash
+sudo apt-get -y update &&
+sudo apt-get install nfs-common -y
+sudo mkdir -p $HOME/mnt/moodle
+sudo mount 10.73.129.2:/moodle /mnt/moodle
+sudo apt install docker.io -y
+sudo apt install docker-compose -y
+sudo apt install git -y
+sudo systemctl enable docker
+sudo systemctl start docker
+git clone https://github.com/JulianRamirezJ/st0263-jaramirezj.git
+cd st0263-jaramirezj/reto4/moodle-instance 
+sudo docker-compose -f docker-compose.yml up -d
+```
+
+Antes de levantar el "docker-compose", se debe cambiar la propiedad "MOODLE_SKIP_BOOTSTRAP" por "no" para que haga el bootstrap inicial.
+
+5. Se creó un template de instancia de Compute Engine con las siguientes características:
+- Ubuntu 22.04
+- e2-micro
+- Se habilitó HTTP
+- Grupo de seguridad default
+
+En el "start up" script se incluyó lo siguiente:
+
+```bash
+#! /bin/bash
+sudo apt-get -y update &&
+sudo apt-get install nfs-common -y
+sudo mkdir -p $HOME/mnt/moodle
+sudo mount 10.73.129.2:/moodle /mnt/moodle
+sudo apt install docker.io -y
+sudo apt install docker-compose -y
+sudo apt install git -y
+sudo systemctl enable docker
+sudo systemctl start docker
+git clone https://github.com/JulianRamirezJ/st0263-jaramirezj.git
+cd st0263-jaramirezj/reto4/moodle-instance 
+sudo docker-compose -f docker-compose.yml up -d
+```
+
+6. Se creó un grupo de instancias con autoscaling con las siguientes características:
+- Se eligió el template de instancia previamente creado.
+- Zona única (us-east1)
+- Número mínimo de instancias: 2
+- Número máximo de instancias: 6
+
+Se agregó un health check, pero no es necesario para el montado.
+
+7. Se creó el balanceador de cargas:
+a. Se eligió Balanceo de cargas HTTP(S)
+b. Se eligió De Internet a mis VMs o servicios sin servidores
+c. Se eligió Balanceador de cargas HTTP(S) global (clásico)
+d. Se creó el backend, eligiendo el grupo de instancias creadas en el punto anterior.
+e. Se creó el frontend, utilizando el protocolo HTTPS, creando una IP o eligiendo una existente, creando un certificado con GCP referenciado al dominio "reto4.samuelvillegas.online" y habilitando la redirección automática http - https.
+
+En el DNS se asoció la IP del frontend del balanceador y se creó el subdominio correspondiente.
 
 ## 5. Detalles del desarrollo
 
