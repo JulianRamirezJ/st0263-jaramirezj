@@ -118,13 +118,13 @@ sudo docker-compose -f docker-compose.yml up -d
 Se agregó un health check, pero no es necesario para el montado.
 
 7. Se creó el balanceador de cargas:
-a. Se eligió Balanceo de cargas HTTP(S)
-b. Se eligió De Internet a mis VMs o servicios sin servidores
-c. Se eligió Balanceador de cargas HTTP(S) global (clásico)
-d. Se creó el backend, eligiendo el grupo de instancias creadas en el punto anterior.
-e. Se creó el frontend, utilizando el protocolo HTTPS, creando una IP o eligiendo una existente, creando un certificado con GCP referenciado al dominio "reto4.samuelvillegas.online" y habilitando la redirección automática http - https.
+ - Se eligió Balanceo de cargas HTTP(S)
+ - Se eligió De Internet a mis VMs o servicios sin servidores
+ - Se eligió Balanceador de cargas HTTP(S) global (clásico)
+ -  Se creó el backend, eligiendo el grupo de instancias creadas en el punto anterior.
+ - Se creó el frontend, utilizando el protocolo HTTPS, creando una IP o eligiendo una existente, creando un certificado con GCP referenciado al dominio "reto4.samuelvillegas.online" y habilitando la redirección automática http - https.
 
-En el DNS se asoció la IP del frontend del balanceador y se creó el subdominio correspondiente.
+8. Finalmente el DNS se asoció la IP del frontend del balanceador y se creó el subdominio correspondiente.
 
 ## 5. Detalles del desarrollo
 
@@ -137,41 +137,68 @@ Finalmente, se configuró el DNS con certificados SSL obtenidos a través de Cer
 
 ## 6. Detalles técnicos
 
-Al crear las máquinas en GCP con Ubuntu 22 hay que permitir trafico http y https(Para el NGINX).
+Teniendo en cuenta que todos estos servicios utilizados comsumen muchos creditos, se recomienda no tenerlos habilitados mientras
+no se esten utilizando y elegir simempre las caracteristicas minimas.
+
+Es importante tener un cuenta que antes de levantar el "docker-compose" en la instancia de prueba, se debe cambiar la propiedad "MOODLE_SKIP_BOOTSTRAP" por "no" para que haga el bootstrap inicial.
 
 
 ## 7. Descripción y como se configura los parámetros del proyecto
 
-Para configurar los parametros del proyecto se tienen una env_file.txt con las ips y puertos
-para docker, si necesita cambiar algo simplemente especifiquelo ahi.
-Para los demás componentes las configuraciones de parametros }se hacen como se presentaron en la guia.
-
+Para configurar los parametros del proyecto debe hacer todo el proceso descrito en eñl numeral #4 y configurar los diferentes
+parametros según la necesidad. 
 
 ## 8. ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO
-## 
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-04-30%2012-26-18.png![image](https://user-images.githubusercontent.com/57159295/235367269-6c32d222-5ffd-4ef4-9ed3-04d04f7649ae.png)
 
+Esta es la estructura de directorios basica para el proyecto, hay que tener en cuenta que dado que muchos de los servicios se deben configurar
+manualmente no se tienen scripts para hacerlo, asi que como script solo se tiene el docker-compose para montar las instancias de moodle.
 
 ## 9. Descripción del ambiente de EJECUCIÓN (en producción)
+
+En un navegador se ingresa a la URL o dominio del proyecto y se puede interactuar con la pagina de moodle.
 
 ## 10. IP o nombres de dominio en nube o en la máquina servidor.
 
 Para que se pueda acceder al proyecto sin necesidad de memorizarse una IP especifica se tiene un nombre 
-de dominio, que en este caso es ................, esto redireccionará por defecto
-a https://..........site
+de dominio, que en este caso es .reto4.samuelvillegas.online, esto redireccionará por defecto
+a https://reto4.samuelvillegas.online
 
-## 11. Como se lanza el servidor.
+## 11. Screenshots del proceso de montado
+Creación filestore
+![image](https://user-images.githubusercontent.com/57159295/235367471-4349e9b2-1bf6-4faa-aff4-ff12c722c429.png)
+
+Creación Cloud SQL y base de datos
+![image](https://user-images.githubusercontent.com/57159295/235367479-a7b641fb-383a-4260-a4d0-02b108e30e4e.png)
+
+Montado de Bootstrap inicial a NFS y base de datos
+![image](https://user-images.githubusercontent.com/57159295/235367484-a52059b3-ab56-47c2-8d1d-dd3fdb41053a.png)
+
+Instancia de prueba conectada a BD y NFS
+![image](https://user-images.githubusercontent.com/57159295/235367490-f1ac2eaf-ce60-40b3-b71f-bee4b92f7a28.png)
+
+Instancia de template compute Engine
+![image](https://user-images.githubusercontent.com/57159295/235367496-07850820-bd04-4a67-85ce-09379d014498.png)
+![image](https://user-images.githubusercontent.com/57159295/235367505-775b4638-b5a4-40c8-bd4a-77900a89effb.png)
+
+Grupo de instancia
+![image](https://user-images.githubusercontent.com/57159295/235367511-7efd7b55-3186-4716-b675-36723b4d9bc6.png)
+
+Balanceador
+![image](https://user-images.githubusercontent.com/57159295/235367518-1844afab-8d59-438c-a601-2681166a4c15.png)
+
+DNS
+![image](https://user-images.githubusercontent.com/57159295/235367527-07c167ca-ae9c-407c-837d-8fcdfc297229.png)
 
 
-## 12. Guia de como un usuario utilizaría el software o la aplicación
+## 12. Resultado final
+Al final se tiene la aplicación de Moodle corriendo en un browser:
+![image](https://user-images.githubusercontent.com/57159295/235367545-ecd01661-6586-4886-8252-fcda88973374.png)
 
 
 
 # 13. Referencias:
 ## Guia y comandos de Edwin Montoya - Profesor
       https://github.com/st0263eafit/st0263-231/tree/main/docker-nginx-wordpress-ssl-letsencrypt
-## How To Set Up an NFS Mount on Ubuntu 22.04
-      https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-22-04
-## certbot instructions (Certbot with NGINX and Ubuntu)
-      https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
 #### versión README.md -> 1.0 (2023-Marzo)
