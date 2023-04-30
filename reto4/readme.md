@@ -199,5 +199,8 @@ Al final se tiene la aplicación de Moodle corriendo en un browser:
 # 13. Referencias:
 ## Guia y comandos de Edwin Montoya - Profesor
       https://github.com/st0263eafit/st0263-231/tree/main/docker-nginx-wordpress-ssl-letsencrypt
+ 
+ ## Creating a Load-Balanced Managed Instance Group on Google Cloud Platform
+        https://acloudguru.com/hands-on-labs/creating-a-load-balanced-managed-instance-group-on-google-cloud-platform
 
 #### versión README.md -> 1.0 (2023-Marzo)
