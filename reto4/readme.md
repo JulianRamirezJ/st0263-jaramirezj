@@ -52,7 +52,6 @@ En el siguiente nivel de la arquitectura, se encuentran las instancias de Moodle
 - Para la creación de los directorios compartidos se ha utilizado Google Cloud Filestore, que proporciona compatibilidad con el protocolo NFSv3 y acceso seguro a los archivos.
 - La obtención de los certificados SSL se ha llevado a cabo utilizando los que provee Google, lo que permitió la generación y uso de estos de una forma rapida y confiable.
 - Para la implementación del balanceador de carga se ha hecho uso de Google Cloud Load Balancing, un servicio administrado que proporciona un enrutamiento inteligente del tráfico y la distribución de carga entre múltiples instancias de backend en diferentes regiones.
-# Como se compila y ejecuta.
 
 ## 4. Como se compila y ejecuta
 Para desarrollar, compilar y ejecutar el proyecto, se siguieron los siguientes pasos:
