@@ -12,17 +12,17 @@
 
 ## 1. Descripción del proyecto
 
-En esta actividad se ha desarrollado y montado un sitio Moodle con alta disponibilidad utilizando servicios administrados en Google Cloud Platform (GCP). El sitio cuenta con un balanceador de carga (LB) y un autoescaler que aseguran que los recursos sean asignados según las necesidades de los usuarios.
+En esta actividad se ha desarrollado y montado un sitio Moodle con alta disponibilidad utilizando servicios administrados en Google Cloud Platform (GCP). El sitio cuenta con un balanceador de carga (LB) y un autoscaling que aseguran que los recursos sean asignados según las necesidades de los usuarios.
 
 Se han utilizado instancias de GCP e2.micro con 10GB de almacenamiento, en las cuales se instaló el sistema operativo Ubuntu 22.04. Para dockerizar la mayoría de los componentes se ha utilizado Docker, y para desarrollar el proyecto se ha utilizado Moodle.
 
-Para la persistencia de la base de datos de Moodle, se ha utilizado una instancia de SQL en GCP. Además, se ha utilizado el servicio administrado de NFS de GCP para crear los directorios compartidos y almacenar los archivos de Moodle.
+Para la persistencia de la base de datos de Moodle, se ha utilizado una instancia de Cloud SQL de MYSQL. Además, se ha utilizado el servicio administrado de NFS de GCP llamado Filestore para crear los directorios compartidos y almacenar los archivos de Moodle.
 
-Para obtener los certificados SSL se han utilizado los que porvee Google y para realizar el balanceador de carga se ha utilizado el servicio de balanceo de carga de GCP. De esta manera, se asegura una distribución eficiente de la carga de trabajo entre los servidores.
+Para obtener los certificados SSL se han utilizado los que proporciona Google y para realizar el balanceador de carga se ha utilizado el servicio de balanceo de carga de GCP. De esta manera, se asegura una distribución eficiente de la carga de trabajo entre los servidores.
 
-Se ha configurado un dominio y un DNS para apuntar al LB, lo que permite que los usuarios accedan al sitio a través del enlace reto4.julianrjdev.site con conexión HTTPS.
+Se ha configurado un dominio y un DNS para apuntar al LB, lo que permite que los usuarios accedan al sitio a través del enlace reto4.samuelvillegas.online con conexión HTTPS.
 
-En resumen, se ha implementado un sitio Moodle altamente disponible utilizando servicios administrados en GCP, lo que asegura la escalabilidad, disponibilidad y seguridad del sitio para los usuarios finales. Del lado del usuario final, se puede acceder al enlace reto4.julianrjdev.site a través de HTTPS.
+En resumen, se ha implementado un sitio Moodle altamente disponible utilizando servicios administrados en GCP, lo que asegura la escalabilidad, disponibilidad y seguridad del sitio para los usuarios finales. Del lado del usuario final, se puede acceder al enlace reto4.samuelvillegas.online a través de HTTPS.
  
  
 ### 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
@@ -114,7 +114,7 @@ sudo docker-compose -f docker-compose.yml up -d
 - Número mínimo de instancias: 2
 - Número máximo de instancias: 6
 
-Se agregó un health check, pero no es necesario para el montado.
+Se agregó un health check que permitirá cada cierto tiempo revisar el estado de nuestros servidores. 
 
 7. Se creó el balanceador de cargas:
  - Se eligió Balanceo de cargas HTTP(S)
@@ -132,7 +132,7 @@ Luego, se procedió a implementar la base de datos en Cloud SQL y conectarla con
 Posteriormente, se configuró Cloud Filestore para alojar el sistema de archivos de Moodle y al mismo tiempo se hizo el cambio de almacenamiento local
 del Moodle a almacenamiento en File Store
 Después de tener la base de datos y el sistema de archivos en servicios administrados de GCP, se procedió a configurar el Load Balancing y el autoscaling en GCP, lo que permitió tener un sitio Moodle altamente disponible y escalable en función de la demanda de los usuarios.
-Finalmente, se configuró el DNS con certificados SSL obtenidos a través de Certbot, lo que permitió tener un sitio seguro y accesible a través de HTTPS. En resumen, se logró implementar un sitio Moodle altamente disponible, escalable y seguro, utilizando servicios administrados en GCP.
+Finalmente, se configuró el DNS con certificados SSL obtenidos en GCP, lo que permitió tener un sitio seguro y accesible a través de HTTPS. En resumen, se logró implementar un sitio Moodle altamente disponible, escalable y seguro, utilizando servicios administrados en GCP.
 
 ## 6. Detalles técnicos
 
