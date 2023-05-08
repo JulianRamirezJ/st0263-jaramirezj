@@ -1,0 +1,5 @@
+DB_HOST=10.73.128.3
+DB_PORT=3306
+DB_USER=root
+DB_PASS=12345
+DB_NAME=bitnami_moodle
