@@ -19,3 +19,6 @@ file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%
 ## Parte 2
 
 file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2011-02-05.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/b0ebc2da-d6cf-4eea-b2a2-74cc3b507766)
+
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2011-04-08.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/7000e56c-e812-4903-807f-bf2a7432551d)
+
