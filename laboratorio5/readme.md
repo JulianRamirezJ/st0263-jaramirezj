@@ -3,8 +3,8 @@
 
 
 file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-10-01.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/26d2a215-0942-4a04-ac20-b4fef802fbbf)
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-18-59.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/cb5f819a-7dc1-4d35-be65-9f37b9ec8fb8)
 
-file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-13-38.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/2945e038-7ac5-4a6b-bd6c-b1227d3d8ffe)
 
 
 file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-27-15.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/4e0b1dac-b16e-46e2-8795-42d1b2f81340)
