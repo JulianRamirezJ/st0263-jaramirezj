@@ -1,1 +1,6 @@
 ##This is the github for the lab/reto 5
+
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-26-47.png
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-27-15.png
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-28-29.png
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-24-46.png
