@@ -23,3 +23,7 @@ file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%
 file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2011-04-08.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/7000e56c-e812-4903-807f-bf2a7432551d)
 
 file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2011-23-53.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/f4dcc192-500b-4edd-92d1-ec21cb78d2a5)
+
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2011-29-52.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/f335f6de-b9fb-468f-a623-dfa274d64153)
+
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2011-32-27.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/12bf5624-94fc-4ae4-a8d5-de484d09263f)
