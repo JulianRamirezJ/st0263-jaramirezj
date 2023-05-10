@@ -4,8 +4,9 @@
 
 ## Parte 1
 
-file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-10-01.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/26d2a215-0942-4a04-ac20-b4fef802fbbf)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/07594a18-7fc8-4d2c-97ce-58e966566204)
 
+file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-10-01.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/26d2a215-0942-4a04-ac20-b4fef802fbbf)
 
 file:///home/julianramirezj/Pictures/Screenshots/Screenshot%20from%202023-05-09%2010-27-15.png![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/4e0b1dac-b16e-46e2-8795-42d1b2f81340)
 
