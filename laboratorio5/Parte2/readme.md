@@ -45,6 +45,7 @@ Podemos ver el archivo que acabamos de cargar:
  ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/95f70e6e-306a-4d8c-9b80-0841e44e62a3)
  
 Este bucket se encuentra público y puede acceder a el con el siguiente comando:
+
        ''' aws s3 ls s3://st0263jaramirezj/datasets/ '''
 
 
