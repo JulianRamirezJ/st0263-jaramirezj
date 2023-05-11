@@ -46,6 +46,6 @@ Podemos ver el archivo que acabamos de cargar:
  
 Este bucket se encuentra público y puede acceder a el con el siguiente comando:
 
-       ''' aws s3 ls s3://st0263jaramirezj/datasets/ '''
+       aws s3 ls s3://st0263jaramirezj/datasets/ 
 
 
