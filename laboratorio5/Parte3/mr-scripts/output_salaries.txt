@@ -1,0 +1,11 @@
+"employee-count-1115"	3
+"sector-1212-avg: "	77000.0
+"employee-count-3233"	2
+"sector-5434-avg: "	36000.0
+"sector-3432-avg: "	34000.0
+"sector-1412-avg: "	76000.0
+"employee-1115-avg: "	62333.333333333336
+"employee-count-3237"	1
+"sector-1234-avg: "	37500.0
+"employee-3237-avg: "	40000.0
+"employee-3233-avg: "	35500.0

@@ -1,52 +1,38 @@
 from mrjob.job import MRJob
+from mrjob.step import MRStep
 
-
-class SalaryStats(MRJob):
-
-    def mapper(self, _, line):
-        idemp, sececon, salary, _ = line.strip().split(',')
-        
-        yield sececon, float(salary)
-        yield idemp, float(salary)
-        yield idemp, sececon
-
-    def reducer_avg_salary_by_sececon(self, sececon, salaries):
-        total_salary = 0
-        num_salaries = 0
-
-        for salary in salaries:
-            total_salary += salary
-            num_salaries += 1
-
-        avg_salary = total_salary / num_salaries
-        yield sececon, avg_salary
-
-    def reducer_avg_salary_by_employee(self, idemp, salaries):
-        total_salary = 0
-        num_salaries = 0
-
-        for salary in salaries:
-            total_salary += salary
-            num_salaries += 1
-
-        avg_salary = total_salary / num_salaries
-        yield idemp, avg_salary
-
-    def reducer_num_sececon_by_employee(self, idemp, sececons):
-        unique_sececons = set(sececons)
-        num_sececons = len(unique_sececons)
-        yield idemp, num_sececons
+class Salary(MRJob):
 
     def steps(self):
         return [
-            self.mr(mapper=self.mapper,
-                    reducer=self.reducer_avg_salary_by_sececon),
-            self.mr(mapper=self.mapper,
-                    reducer=self.reducer_avg_salary_by_employee),
-            self.mr(mapper=self.mapper,
-                    reducer=self.reducer_num_sececon_by_employee)
+            MRStep(mapper=self.mapper,
+                   reducer=self.reducer)
         ]
 
+    def mapper(self, _, line):
+        row = line.replace(" ", "").split(",")
 
-if __name__ == '__main__':
-    SalaryStats.run()
+        try:
+            idemp = int(row[0])
+            sector = int(row[1])
+            salary = float(row[2])
+            year = int(row[3])
+        except ValueError:
+            return
+
+        yield f"sector-{sector}-avg", salary
+        yield f"employee-{idemp}-avg", salary
+        yield f"employee-count-{idemp}", sector
+
+    def reducer(self, key, values):
+        if key.startswith("employee-count-"):
+            count = len(set(values))
+            yield key, count
+        else:
+            values = list(values)
+            avg_salary = sum(values) / len(values)
+            yield key, avg_salary
+
+
+if __name__ == "__main__":
+    Salary.run()
