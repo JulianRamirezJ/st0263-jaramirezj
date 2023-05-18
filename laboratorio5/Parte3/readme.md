@@ -22,4 +22,32 @@ Aqui se puede encontrar el código: https://github.com/JulianRamirezJ/st0263-jar
 Aqui se puede encontrar el código: https://github.com/JulianRamirezJ/st0263-jaramirezj/blob/main/laboratorio5/Parte3/mr-scripts/movies.py
 
 
+## Parte 2
+
+### Conexión al nodo master
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/bcf06386-0241-46aa-972f-7902a9209de8)
+### Linea de comandos pyspark
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/7b7c7f53-f8b2-415e-b836-04ae04f17531)
+
+
+### 2.1 WordCount con PySpark y HDFS
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/efb1b3e4-8158-4f0b-8ff8-e47c9a379283)
+
+
+### 2.2 Wordcount con pyspark y s3
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/605e50d8-17de-4be7-b064-2cc8973846ab)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/8d76a8a3-37e4-4aba-83ac-2d4753eab69d)
+
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/5c513d9c-2fc9-4104-9484-d39ce0f3574f)
+
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/a0bb9258-1c03-4d79-a319-c7c8fbeea497)
+
+
+
+### 2.3 WordCount con JupyterHub
+
+### 2.4 Replicacion del notebook en JupyterHub
+
+
+
 
