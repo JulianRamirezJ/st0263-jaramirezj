@@ -7,4 +7,7 @@
 ### Parte 1: https://github.com/JulianRamirezJ/st0263-jaramirezj/tree/main/laboratorio5/Parte1
 
 ### Parte 2: https://github.com/JulianRamirezJ/st0263-jaramirezj/tree/main/laboratorio5/Parte2 
+
+
+### Parte 3: https://github.com/JulianRamirezJ/st0263-jaramirezj/tree/main/laboratorio5/Parte3
   
