@@ -42,9 +42,9 @@ Aqui se puede encontrar el código: https://github.com/JulianRamirezJ/st0263-jar
 
 ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/a0bb9258-1c03-4d79-a319-c7c8fbeea497)
 
-
-
 ### 2.3 WordCount con JupyterHub
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/739a4ddc-2af7-4f2d-a1d4-356c53df54ce)
+
 
 ### 2.4 Replicacion del notebook en JupyterHub
 
