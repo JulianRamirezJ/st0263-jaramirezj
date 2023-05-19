@@ -1,5 +1,5 @@
-# Evidencias de realización del laboratio 5 
-## Julian Andres Ramirez Jimenez
+# Evidencias de realización del laboratorio 5  parte 3
+## Julian Andres Ramirez Jimenez, jaramirezj@eafit.edu.co
 
 ## Parte 1 - Ejercicios MapReduce
 
