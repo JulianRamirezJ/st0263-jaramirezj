@@ -7,9 +7,9 @@
 
 
 ## 1. Hive
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/cbf189aa-567a-440e-8e05-8bf509f61679)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/fadc203c-a970-4baa-ad7c-02d84ee86002)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/42a87070-6dc0-420d-bafc-b1d736fe5b3f)
 
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/aedda32b-5681-4972-9324-93d13888fb8f)
 
 
 
