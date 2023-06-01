@@ -1,5 +1,5 @@
-# Evidencias de realización del laboratio 5 
-## Julian Andres Ramirez Jimenez
+# Evidencias de realización del laboratorio 5  parte 3
+## Julian Andres Ramirez Jimenez, jaramirezj@eafit.edu.co
 
 ## Parte 1 - Ejercicios MapReduce
 
@@ -48,6 +48,8 @@ Aqui se puede encontrar el código: https://github.com/JulianRamirezJ/st0263-jar
 
 ### 2.4 Replicacion del notebook en JupyterHub
 Esta parte se hizo en jupyterhub
+
+Aquí puede encotrar el notebook: https://github.com/JulianRamirezJ/st0263-jaramirezj/blob/main/laboratorio5/Parte3/Data_processing_using_PySpark.ipynb
 ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/c85f0ec5-9250-4155-9c8c-840c9f4f029a)
 
 Bloque 3-4: Se crea y asigna una sesión de Spark.
