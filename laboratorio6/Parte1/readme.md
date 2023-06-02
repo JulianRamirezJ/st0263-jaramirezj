@@ -31,10 +31,16 @@
 
 ### WordCount
 #### Crear tabla
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/4429b2a4-0770-4833-9b89-d02d10c414b7)
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/45df40e7-b14d-4191-b618-42bfa5e988d2)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/26beb8df-3292-4e28-a70d-c3a36bcb3ce3)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/59af70ea-4f35-4b32-aa59-1a6aa565c8e8)
 
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/2ce7103e-3821-49c5-87df-ac1f05d2ade3)
+### Realizar conteo y ordenamiento
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/49556fa1-816a-46ec-acdd-b4db7c354a25)
+ 
+ ### Almacenando en una tabla el diccionario de frecuencia de palabras en el wordcount
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/7f83ebb3-2dfb-4156-96f7-c80fc017681c)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/f4c1f6da-6cb8-4267-96bd-99562b78963c)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/52ae51f2-a009-47dc-87e1-0f6eb033d563)
 
 
 
