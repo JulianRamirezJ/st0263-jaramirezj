@@ -25,9 +25,10 @@
 ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/97e4a8ee-a202-4fc0-9f30-2e26dd390f74)
 
 #### Crear tabla expo
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/dc1b839f-46be-426f-b1c9-80c87504035c)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/f4c3a8d4-a0df-489f-a67f-c83c447a2fcf)
+
 ##### Join de dos tablas
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/e5d9462b-5913-4680-aefc-53af0c7aa5be)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/027a24ca-ca6b-412b-a4c9-29465c2b3096)
 
 ### WordCount
 #### Crear tabla
@@ -40,16 +41,9 @@
  ### Almacenando en una tabla el diccionario de frecuencia de palabras en el wordcount
 ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/7f83ebb3-2dfb-4156-96f7-c80fc017681c)
 ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/f4c1f6da-6cb8-4267-96bd-99562b78963c)
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/52ae51f2-a009-47dc-87e1-0f6eb033d563)
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/52ae51f2-a009-47dc-87e1-0f6eb033d563)+
 
+### Con SparkSQL
+![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/5493a250-a740-4a76-9029-3815da6c3414)
 
-
-
-
-
-
-
-
-
-
-###
+## AWS GLUE& Athena
