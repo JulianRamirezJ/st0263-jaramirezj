@@ -1,6 +1,6 @@
 # Laboratorio 6 - Parte 2
 ### Estudiante: Julian Andres Ramirez Jimenez, jaramirezj@eafit.edu.co
-### Profesor: Edwin Nelson MOntoya Munera, emontoya@eafit.edu.co
+### Profesor: Edwin Nelson Montoya Munera, emontoya@eafit.edu.co
 
 ## Punto 1
 ### Almacenamiento en S3
