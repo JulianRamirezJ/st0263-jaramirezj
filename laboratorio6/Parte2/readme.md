@@ -17,7 +17,9 @@
 
 ## Punto 4
 ### Puede encontrar los datos de salida en las siguientes ubicaciones
-#### S3 : s3://st0263jaramirezj/covid19/
+#### S3:       
+##### URI: s3://st0263jaramirezj/covid19/
+##### URL: https://st0263jaramirezj.s3.amazonaws.com/covid19/
 ![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/135935ce-fb57-4fcd-baf2-a028d232a703)
 
 #### Drive : https://drive.google.com/drive/folders/1fI5wmslA09AKVTXqzpvc3TrGY1uEVaue?usp=sharing
