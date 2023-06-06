@@ -13,7 +13,7 @@
 ## Punto 2 y 3
 ### Puede encontrar estos puntos desarrollados en los notebooks.
 #### El notebook de jupyterhub: https://github.com/JulianRamirezJ/st0263-jaramirezj/blob/main/laboratorio6/Parte2/AnalisisCovid19.ipynb
-#### El notebook de google colab: https://github.com/JulianRamirezJ/st0263-jaramirezj/blob/main/laboratorio6/Parte2/AnalisisCovid19.ipynb
+#### El notebook de google colab: https://github.com/JulianRamirezJ/st0263-jaramirezj/blob/main/laboratorio6/Parte2/AnalisisCovid19WithColab.ipynb
 
 ## Punto 4
 ### Puede encontrar los datos de salida en las siguientes ubicaciones
