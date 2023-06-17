@@ -1,6 +1,9 @@
-# Laboratorio 6 - Parte 2
+# Proyect: Analysis of government data about covid using big data tools
 ### Estudiante: Julian Andres Ramirez Jimenez, jaramirezj@eafit.edu.co
 ### Profesor: Edwin Nelson Montoya Munera, emontoya@eafit.edu.co
+
+## Overview
+This project involved conducting a basic analysis and exploration of datasets provided by the Colombian government on COVID-19 figures. To accomplish this, we utilized tools for big data, analytics, and cloud computing. Specifically, we employed AWS services such as EMR and S3, as well as JupyterHub, Google Colab, Google Drive, and Spark. The goal was to gain insights and extract meaningful information from the data to contribute to our understanding of the COVID-19 situation and again experience using cloud tools for data science.
 
 ## Punto 1
 ### Almacenamiento en S3
