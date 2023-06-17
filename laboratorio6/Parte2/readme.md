@@ -1,4 +1,4 @@
-![image](https://github.com/JulianRamirezJ/st0263-jaramirezj/assets/57159295/2b99d51a-560d-49e2-9f2c-56a0c573291d)# Proyect: Analysis of government data about covid using big data tools
+# Proyect: Analysis of government data about covid using big data tools
 ### Estudiante: Julian Andres Ramirez Jimenez, jaramirezj@eafit.edu.co
 ### Profesor: Edwin Nelson Montoya Munera, emontoya@eafit.edu.co
 
